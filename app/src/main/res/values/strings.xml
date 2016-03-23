@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Labyrinth</string>
+    <string-array name="screen_array">
+        <item>Одиночная игра</item>
+        <item>Играть с друзьями</item>
+        <item>Посмотреть повторы</item>
+        <item>Выход</item>
+    </string-array>
 </resources>
