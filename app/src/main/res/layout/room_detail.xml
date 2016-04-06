@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                style="@style/MainFont"
+                android:text="Размер комнаты:"
+                />
+
+            <TextView
+                style="@style/MainFont"
+                android:text="0"
+                android:id="@+id/room_size"
+                />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                style="@style/MainFont"
+                android:id="@+id/label_step_time"
+                android:text="Время хода:"/>
+
+            <TextView
+                style="@style/MainFont"
+                android:text="New Text"
+                android:id="@+id/step_time"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                style="@style/MainFont"
+                android:text="Игроков:"
+                android:id="@+id/label_number_players"/>
+
+            <TextView
+                style="@style/MainFont"
+                android:text="New Text"
+                android:id="@+id/number_players"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                style="@style/MainFont"
+                android:text="Игроков max:"
+                android:id="@+id/label_max_players"/>
+
+            <TextView
+                style="@style/MainFont"
+                android:text="New Text"
+                android:id="@+id/max_players"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                style="@style/MainFont"
+                android:text="Игроков min:"
+                android:id="@+id/label_min_players"/>
+
+            <TextView
+                style="@style/MainFont"
+                android:text="New Text"
+                android:id="@+id/min_players"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                style="@style/MainFont"
+                android:text="Пароль:"
+                android:id="@+id/label_game_password"/>
+
+            <TextView
+                style="@style/MainFont"
+                android:text="New Text"
+                android:id="@+id/game_password"/>
+        </TableRow>
+    </TableLayout>
+
+    <Button
+        style="@style/MainButton"
+        android:text="@string/join_game"
+        android:id="@+id/join_game"/>
+    <Button
+        style="@style/MainButton"
+        android:text="@string/create_game"
+        android:id="@+id/create_game"/>
+
+</LinearLayout>

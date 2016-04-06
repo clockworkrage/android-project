@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Labyrinth</string>
+    <string name="join_game">Присоединиться</string>
+    <string name="create_game">Создать новую комнату</string>
     <string-array name="screen_array">
         <item>Одиночная игра</item>
         <item>Играть с друзьями</item>
