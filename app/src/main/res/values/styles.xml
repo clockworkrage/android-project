@@ -6,6 +6,16 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textViewStyle">@style/MainFont</item>
+        <item name="android:windowBackground">@color/colorWhite</item>
+    </style>
+
+    <style name="DarkTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/colorDarkRed</item>
+        <item name="colorPrimaryDark">@color/colorDarkBlue</item>
+        <item name="colorAccent">@color/colorSand</item>
+        <item name="android:textViewStyle">@style/MainFont.Ligth</item>
+        <item name="android:windowBackground">@color/colorGray</item>
     </style>
 
     <style name="MainFont" parent="@android:style/TextAppearance.Holo">
@@ -14,11 +24,19 @@
         <item name="android:textSize">@dimen/font_size</item>
     </style>
 
+    <style name="MainFont.Ligth">
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
     <style name="MainButton" parent="@android:style/Widget.Button">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:textSize">@dimen/font_size</item>
-        <item name="android:textColor">@color/colorAccent</item>
     </style>
+
+    <style name="NavBar">
+        <item name="android:background">#FFFFFF</item>
+    </style>
+
 
 </resources>

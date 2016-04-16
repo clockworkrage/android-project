@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         mDrawerList = (ListView) findViewById(R.id.navList);
+
+
         mScreenTitles = getResources().getStringArray(R.array.screen_array);
         mDrawerList.setAdapter(new ArrayAdapter<String>(this,
                 R.layout.drawer_list_item, mScreenTitles));

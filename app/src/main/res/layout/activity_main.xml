@@ -11,8 +11,7 @@
         android:id="@+id/mainContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        >
+        android:layout_centerInParent="true">
 
         <FrameLayout
             android:id="@+id/rooms_container"
@@ -46,14 +45,13 @@
         android:id="@+id/drawerPane"
         android:layout_gravity="start">
 
-
         <!-- List of Actions (pages) -->
         <ListView
             android:id="@+id/navList"
             android:layout_width="280dp"
             android:layout_height="match_parent"
             android:choiceMode="singleChoice"
-            android:background="#ffffffff" />
+            android:background="#ffffff" />
 
     </RelativeLayout>
 
