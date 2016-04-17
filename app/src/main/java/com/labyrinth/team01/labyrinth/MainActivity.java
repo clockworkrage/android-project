@@ -1,5 +1,6 @@
 package com.labyrinth.team01.labyrinth;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -54,6 +55,10 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
                     getSupportFragmentManager().beginTransaction().remove(oldRoomsFragment).commit();
                 }
                 /**/
+                if(position == 0){
+                    Intent intent = new Intent(MainActivity.this, GameActivity.class);
+                    startActivity(intent);
+                }
                 if(position == 1) {
                     //Получение списка комнат
                     GetRoomListTask task = new GetRoomListTask();
