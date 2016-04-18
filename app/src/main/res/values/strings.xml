@@ -8,4 +8,6 @@
         <item>Посмотреть повторы</item>
         <item>Выход</item>
     </string-array>
+    <string name="drawer_open">drawer open</string>
+    <string name="drawer_close">drawer close</string>
 </resources>
