@@ -3,10 +3,6 @@
     <string name="join_game">Присоединиться</string>
     <string name="create_game">Создать новую комнату</string>
     <string name="game_resourse">^</string>
-    <string name="button_bottom">v</string>
-    <string name="button_top">^</string>
-    <string name="button_left"><![CDATA[<]]></string>
-    <string name="button_right"><![CDATA[>]]></string>
     <string-array name="screen_array">
         <item>Одиночная игра</item>
         <item>Играть с друзьями</item>

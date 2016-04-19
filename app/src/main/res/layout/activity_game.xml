@@ -16,7 +16,7 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button_top"
+        android:background="@drawable/arrow_up"
         android:id="@+id/button"
         android:onClick="onClickTop"
         android:layout_gravity="center_horizontal" />
@@ -31,14 +31,16 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/button_left"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/arrow_left"
                 android:onClick="onClickLeft"
                 android:id="@+id/button3" />
             <Button
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/button_right"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/arrow_right"
                 android:onClick="onClickRight"
                 android:id="@+id/button4" />
 
@@ -49,7 +51,7 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button_bottom"
+        android:background="@drawable/arrow_down"
         android:id="@+id/button2"
         android:onClick="onClickBottom"
         android:layout_gravity="center_horizontal" />
