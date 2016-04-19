@@ -16,26 +16,34 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button_left"
-        android:onClick="onClickLeft"
-        android:id="@+id/button3" />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="@string/button_top"
         android:id="@+id/button"
         android:onClick="onClickTop"
-        android:layout_gravity="right" />
+        android:layout_gravity="center_horizontal" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button_right"
-        android:onClick="onClickRight"
-        android:id="@+id/button4" />
+        android:layout_gravity="center_horizontal">
+
+        <TableRow>
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_left"
+                android:onClick="onClickLeft"
+                android:id="@+id/button3" />
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/button_right"
+                android:onClick="onClickRight"
+                android:id="@+id/button4" />
+
+        </TableRow>
+    </TableLayout>
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -44,6 +52,6 @@
         android:text="@string/button_bottom"
         android:id="@+id/button2"
         android:onClick="onClickBottom"
-        android:layout_gravity="right" />
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>
