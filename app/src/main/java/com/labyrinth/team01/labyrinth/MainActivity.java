@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -192,6 +194,20 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
             transaction.commit();
             progressBar.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+            if(mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                mDrawerLayout.closeDrawer(Gravity.LEFT);
+            } else
+                mDrawerLayout.openDrawer(Gravity.LEFT);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
