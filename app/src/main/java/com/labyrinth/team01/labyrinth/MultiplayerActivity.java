@@ -1,9 +1,20 @@
 package com.labyrinth.team01.labyrinth;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NavUtils;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -18,7 +29,23 @@ public class MultiplayerActivity extends AppCompatActivity implements ListRoomsF
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences sPref = getSharedPreferences(getString(R.string.pref_file), Context.MODE_PRIVATE);
+        String defaultValue = getResources().getString(R.string.style_pref_default);
+        String appStyle = sPref.getString(getString(R.string.style_pref), defaultValue);
+        if(appStyle.equals(getString(R.string.style_pref_dark))) {
+            setTheme(R.style.DarkTheme);
+        } else
+            setTheme(R.style.AppTheme);
+
         setContentView(R.layout.activity_multiplayer);
+
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeButtonEnabled(true);
+
+        }
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
@@ -35,6 +62,24 @@ public class MultiplayerActivity extends AppCompatActivity implements ListRoomsF
         GetRoomListTask task = new GetRoomListTask();
         task.execute();
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                super.onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

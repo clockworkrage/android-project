@@ -15,30 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true">
 
-        <FrameLayout
-            android:id="@+id/rooms_container"
-            android:layout_width="260dp"
-            android:layout_height="match_parent"
-            />
-        <FrameLayout
-            android:id="@+id/detail_container"
-            android:layout_width="260dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/rooms_container"
-            android:layout_toEndOf="@+id/rooms_container" />
 
-        <ProgressBar
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/progressBar"
-            android:layout_gravity="center_horizontal"
-            android:visibility="invisible"
-            android:indeterminate="true"
-            android:layout_centerInParent="true"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"/>
     </RelativeLayout>
     <!-- The navigation drawer -->
     <RelativeLayout

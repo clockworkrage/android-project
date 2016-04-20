@@ -3,12 +3,26 @@
     <string name="join_game">Присоединиться</string>
     <string name="create_game">Создать новую комнату</string>
     <string name="game_resourse">^</string>
+    <string name="setting_name_style">Стиль:</string>
+    <string name="setting_button_submit">Сохранить</string>
+    <string name="style_pref">app_style</string>
+    <string name="style_pref_default">Dark</string>
+    <string name="style_pref_dark">Dark</string>
+    <string name="style_pref_light">Light</string>
+    <string name="pref_file">com.labyrinth.team01.PREFERENCE_FILE_KEY</string>
+
     <string-array name="screen_array">
         <item>Одиночная игра</item>
         <item>Играть с друзьями</item>
         <item>Посмотреть повторы</item>
+        <item>Настройки</item>
         <item>Выход</item>
     </string-array>
     <string name="drawer_open">drawer open</string>
     <string name="drawer_close">drawer close</string>
+    <string name="title_activity_settings">Settings</string>
+    <string-array name="styles_array">
+        <item>Dark</item>
+        <item>Light</item>
+    </string-array>
 </resources>

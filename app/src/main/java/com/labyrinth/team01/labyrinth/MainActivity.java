@@ -1,5 +1,6 @@
 package com.labyrinth.team01.labyrinth;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,7 +18,9 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
-
+import android.support.v7.app.ActionBar;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -31,9 +34,18 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences sPref = getSharedPreferences(getString(R.string.pref_file), Context.MODE_PRIVATE);
+        String defaultValue = getResources().getString(R.string.style_pref_default);
+        String appStyle = sPref.getString(getString(R.string.style_pref), defaultValue);
+        if(appStyle.equals(getString(R.string.style_pref_dark))) {
+            setTheme(R.style.DarkTheme);
+        } else
+            setTheme(R.style.AppTheme);
+
         setContentView(R.layout.activity_main);
 
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        ActionBar actionBar = getSupportActionBar();
         if(actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeButtonEnabled(true);
@@ -54,12 +66,16 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this, GameActivity.class);
                     startActivity(intent);
                 }
+
                 if(position == 1) {
                     Intent intent = new Intent(MainActivity.this, MultiplayerActivity.class);
                     startActivity(intent);
                 }
 
-
+                if(position == 3) {
+                    Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                    startActivity(intent);
+                }
             }
         });
         Toolbar toolbar = (Toolbar)  findViewById(R.id.toolbar);
@@ -98,7 +114,6 @@ public class MainActivity extends AppCompatActivity {
                 mDrawerLayout.openDrawer(Gravity.LEFT);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 

@@ -9,6 +9,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.labyrinth.team01.labyrinth.MultiplayerActivity">
 
+
     <FrameLayout
         android:id="@+id/rooms_container"
         android:layout_width="260dp"
