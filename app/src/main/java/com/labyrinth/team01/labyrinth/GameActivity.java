@@ -1,6 +1,8 @@
 package com.labyrinth.team01.labyrinth;
 
 import android.app.Activity;
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +12,9 @@ import com.labyrinth.team01.labyrinth.game.Labirinth;
 import com.labyrinth.team01.labyrinth.game.LabirinthImpl;
 import com.labyrinth.team01.labyrinth.game.TypeLabirinthsCells;
 import com.labyrinth.team01.labyrinth.game.Vec2d;
+import com.labyrinth.team01.labyrinth.utils.DatabaseHelper;
+
+import java.util.Date;
 
 /**
  * Created by Андрей on 17.04.2016.
@@ -22,7 +27,8 @@ public class GameActivity extends Activity {
     private Vec2d pos = labirinth.getStartPosition();
     private boolean isWin = false;
 
-
+    private DatabaseHelper mDatabaseHelper;
+    private SQLiteDatabase mSqLiteDatabase;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,6 +38,9 @@ public class GameActivity extends Activity {
         text = (TextView) findViewById(R.id.textView);
         text.setTypeface(Typeface.MONOSPACE);
         updateLabirinth();
+
+        mDatabaseHelper = new DatabaseHelper(this);
+        mSqLiteDatabase = mDatabaseHelper.getWritableDatabase();
     }
 
     private void updateLabirinth(){
@@ -58,14 +67,18 @@ public class GameActivity extends Activity {
         isWin = true;
         text.setText("You win!");
 
-        /*
-        Тут надо будет сохранить в базу данных маршрут игры, размеры и сид лабиринта
-        labirinth.getSeed();
-        labirinth.getHeight();
-        labirinth.getWidth();
-        playerPath.toString();
-        */
+        writeReplay(playerPath.toString());
     }
+
+    private void writeReplay(String path){/*
+        ContentValues values = new ContentValues();
+        values.put(DatabaseHelper.COLUMN_REPLAYS_SEED, labirinth.getSeed());
+        values.put(DatabaseHelper.COLUMN_REPLAYS_HEIGHT, labirinth.getHeight());
+        values.put(DatabaseHelper.COLUMN_REPLAYS_WIDTH, labirinth.getWidth());
+        values.put(DatabaseHelper.COLUMN_REPLAYS_DATE, Long.toString(new Date().getTime()));
+        values.put(DatabaseHelper.COLUMN_REPLAYS_PATH, path);
+        mSqLiteDatabase.insert(DatabaseHelper.TABLE_REPLAYS, null, values);
+    */}
 
     private void step(){
         updateLabirinth();
