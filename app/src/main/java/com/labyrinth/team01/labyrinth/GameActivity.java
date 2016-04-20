@@ -2,6 +2,8 @@ package com.labyrinth.team01.labyrinth;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -33,6 +35,14 @@ public class GameActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences sPref = getSharedPreferences(getString(R.string.pref_file), Context.MODE_PRIVATE);
+        String defaultValue = getResources().getString(R.string.style_pref_default);
+        String appStyle = sPref.getString(getString(R.string.style_pref), defaultValue);
+        if(appStyle.equals(getString(R.string.style_pref_dark))) {
+            setTheme(R.style.DarkTheme);
+        } else
+            setTheme(R.style.AppTheme);
 
         setContentView(R.layout.activity_game);
         text = (TextView) findViewById(R.id.textView);
