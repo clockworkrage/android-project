@@ -25,4 +25,6 @@
         <item>Dark</item>
         <item>Light</item>
     </string-array>
+    <string name="list_replays_is_empty">List is Empty</string>
+
 </resources>
