@@ -9,24 +9,19 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.labyrinth.team01.labyrinth.MultiplayerActivity">
 
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <TableRow>
-            <FrameLayout
-                android:id="@+id/detail_container"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
-        </TableRow>
-        <TableRow>
-            <FrameLayout
-                android:id="@+id/rooms_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
-        </TableRow>
-    </TableLayout>
+    <FrameLayout
+        android:id="@+id/rooms_container"
+        android:layout_width="260dp"
+        android:layout_height="match_parent"
+        />
+    <FrameLayout
+        android:id="@+id/detail_container"
+        android:layout_width="260dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/rooms_container"
+        android:layout_toEndOf="@+id/rooms_container" />
+
     <ProgressBar
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
@@ -39,15 +34,4 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignTop="@+id/progressBar"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="277dp"
-        android:layout_marginStart="277dp"></RelativeLayout>
-
 </RelativeLayout>
-
-

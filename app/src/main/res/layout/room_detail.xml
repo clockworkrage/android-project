@@ -90,11 +90,11 @@
     </TableLayout>
 
     <Button
-        style="@style/MainButton"
+        style="@style/MainButton.Wide"
         android:text="@string/join_game"
         android:id="@+id/join_game"/>
     <Button
-        style="@style/MainButton"
+        style="@style/MainButton.Wide"
         android:text="@string/create_game"
         android:id="@+id/create_game"/>
 
