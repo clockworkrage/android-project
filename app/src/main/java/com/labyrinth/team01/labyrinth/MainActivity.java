@@ -1,6 +1,8 @@
 package com.labyrinth.team01.labyrinth;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
@@ -16,10 +18,16 @@ import android.widget.ProgressBar;
 
 import com.labyrinth.team01.labyrinth.fragments.DetailRoomFragment;
 import com.labyrinth.team01.labyrinth.fragments.ListRoomsFragment;
+import com.labyrinth.team01.labyrinth.fragments.ReplayListFragment;
+import com.labyrinth.team01.labyrinth.utils.DatabaseHelper;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-public class MainActivity extends AppCompatActivity implements ListRoomsFragment.OnItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements ListRoomsFragment.OnItemSelectedListener, ReplayListFragment.OnItemSelectedListener {
 
     private ListView mDrawerList;
     private ArrayAdapter<String> mAdapter;
@@ -27,6 +35,10 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
     private String[] mScreenTitles;
 
     private ProgressBar progressBar;
+
+    private DatabaseHelper mDatabaseHelper;
+    private SQLiteDatabase mSqLiteDatabase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,9 +49,11 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
         mDrawerList = (ListView) findViewById(R.id.navList);
 
 
+        mDatabaseHelper = new DatabaseHelper(this);
+        mSqLiteDatabase = mDatabaseHelper.getReadableDatabase();
+
         mScreenTitles = getResources().getStringArray(R.array.screen_array);
-        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-                R.layout.drawer_list_item, mScreenTitles));
+        mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, mScreenTitles));
         mDrawerList.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -48,11 +62,16 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
 
                 DetailRoomFragment oldDetailFragment = (DetailRoomFragment) getSupportFragmentManager().findFragmentById(R.id.detail_container);
                 ListRoomsFragment oldRoomsFragment = (ListRoomsFragment) getSupportFragmentManager().findFragmentById(R.id.rooms_container);
+                ReplayListFragment oldReplayListFragment = (ReplayListFragment) getSupportFragmentManager().findFragmentById(R.id.replays_container);
+
                 if (oldDetailFragment != null) {
                     getSupportFragmentManager().beginTransaction().remove(oldDetailFragment).commit();
                 }
                 if (oldRoomsFragment != null) {
                     getSupportFragmentManager().beginTransaction().remove(oldRoomsFragment).commit();
+                }
+                if (oldReplayListFragment != null){
+                    getSupportFragmentManager().beginTransaction().remove(oldReplayListFragment).commit();
                 }
                 /**/
                 if (position == 0) {
@@ -64,7 +83,10 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
                     GetRoomListTask task = new GetRoomListTask();
                     task.execute();
                 }
-
+                if(position == 2){
+                    GetReplaysListTask task = new GetReplaysListTask();
+                    task.execute();
+                }
             }
         });
     }
@@ -72,10 +94,9 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
 
     @Override
     public void onItemSelected(int position) {
-
         DetailRoomFragment oldFragment = (DetailRoomFragment) getSupportFragmentManager().findFragmentById(R.id.detail_container);
 
-        if(oldFragment != null) {
+        if (oldFragment != null) {
             getSupportFragmentManager().beginTransaction().remove(oldFragment).commit();
         }
 
@@ -83,7 +104,14 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
         GetRoomDetailTask task = new GetRoomDetailTask();
         task.roomId = position;
         task.execute();
+    }
 
+    @Override
+    public void onItemSelectedReplay(int position, String value) {
+        Intent intent = new Intent(MainActivity.this, ReplayActivity.class);
+
+        intent.putExtra("labirinth_id", Integer.parseInt(value.substring(1, value.indexOf(","))));
+        startActivity(intent);
     }
 
     class GetRoomListTask extends AsyncTask<Void, Void, Void> {
@@ -146,4 +174,52 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
             progressBar.setVisibility(View.GONE);
         }
     }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+
+    class GetReplaysListTask extends AsyncTask<Void, Void, Void>{
+        List<String> listReplays = new ArrayList<>();
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            Cursor cursor = mSqLiteDatabase.query(DatabaseHelper.TABLE_REPLAYS, new String[]{
+                    DatabaseHelper._ID,
+                    DatabaseHelper.COLUMN_REPLAYS_DATE,
+                    DatabaseHelper.COLUMN_REPLAYS_LENGTH,
+                    DatabaseHelper.COLUMN_REPLAYS_WIDTH
+            }, null, null, null, null, null);
+
+            if(cursor.getCount()==0){
+                return null;
+            }
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()){
+                String str = Integer.toString(cursor.getInt(cursor.getColumnIndex(DatabaseHelper._ID)));
+                String date = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_REPLAYS_DATE));
+                SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy hh:mm");
+                date = format.format(new Date(Long.parseLong(date)));
+                String length = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_REPLAYS_LENGTH));
+                listReplays.add("№" + str + ", " + date + "; " + length + " steps");
+                cursor.moveToNext();
+            }
+            cursor.close();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            ReplayListFragment replayListFragment = new ReplayListFragment();
+            replayListFragment.setListReplays(listReplays.toArray(new String[0]));
+            getSupportFragmentManager().beginTransaction().add(R.id.replays_container, replayListFragment).commit();
+            progressBar.setVisibility(View.GONE);
+        }
+    }
+
 }

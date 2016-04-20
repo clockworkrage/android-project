@@ -1,0 +1,102 @@
+package com.labyrinth.team01.labyrinth;
+
+import android.app.Activity;
+import android.database.Cursor;
+import android.graphics.Typeface;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
+
+import com.labyrinth.team01.labyrinth.game.Labirinth;
+import com.labyrinth.team01.labyrinth.game.LabirinthImpl;
+import com.labyrinth.team01.labyrinth.game.TypeLabirinthsCells;
+import com.labyrinth.team01.labyrinth.game.Vec2d;
+import com.labyrinth.team01.labyrinth.utils.DatabaseHelper;
+
+
+/**
+ * Created by Андрей on 20.04.2016.
+ */
+public class ReplayActivity extends Activity {
+    private int id;
+    private TextView text;
+    private DatabaseHelper mDatabaseHelper;
+    private String path;
+    private Labirinth labirinth;
+    private int width;
+    private int height;
+    private int seed;
+    private Vec2d pos = new Vec2d();
+    private int step = 0;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_replays);
+        text = (TextView) findViewById(R.id.replayField);
+        text.setTypeface(Typeface.MONOSPACE);
+
+        id = getIntent().getIntExtra("labirinth_id", 0);
+
+        mDatabaseHelper = new DatabaseHelper(this);
+
+        Cursor cursor = mDatabaseHelper.getReadableDatabase().query(DatabaseHelper.TABLE_REPLAYS, new String[]{
+                DatabaseHelper._ID,
+                DatabaseHelper.COLUMN_REPLAYS_SEED,
+                DatabaseHelper.COLUMN_REPLAYS_WIDTH,
+                DatabaseHelper.COLUMN_REPLAYS_HEIGHT,
+                DatabaseHelper.COLUMN_REPLAYS_PATH
+        }, DatabaseHelper._ID + " = ?", new String[]{Integer.toString(id)},
+         null, null, null, null);
+
+
+
+        cursor.moveToFirst();
+        path = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_REPLAYS_PATH));
+        seed = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_REPLAYS_SEED));
+        width = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_REPLAYS_WIDTH));
+        height = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_REPLAYS_HEIGHT));
+        cursor.close();
+
+
+        labirinth = new LabirinthImpl(width, height, seed);
+        pos = labirinth.getStartPosition();
+        onClickNext(null);
+    }
+
+    private void updPos(char c){
+        switch (c){
+            case 'w': pos.x -=1; break;
+            case 's': pos.x +=1; break;
+            case 'a': pos.y -=1; break;
+            case 'd': pos.y +=1; break;
+            default: break;
+        }
+    }
+
+    public void onClickNext(View view){
+        updPos(path.charAt(step));
+        StringBuilder stringBuilder = new StringBuilder();
+        for(int i=-3; i<4; ++i){
+            for(int j=-3; j<4; ++j){
+                if(i==0 && j==0){
+                    stringBuilder.append("OO");
+                } else {
+                    stringBuilder.append(TypeLabirinthsCells.getChar(labirinth.getCell((int) pos.x + i, (int) pos.y + j)));
+                    stringBuilder.append(TypeLabirinthsCells.getChar(labirinth.getCell((int) pos.x + i, (int) pos.y + j)));
+                }
+            }
+            stringBuilder.append('\n');
+        }
+        text.setText(stringBuilder.toString());
+        ++step;
+        if(step == path.length()){
+            ifWin();
+        }
+    }
+
+    private void ifWin(){
+        text.setText("You win!");
+    }
+}

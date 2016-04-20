@@ -274,17 +274,17 @@ public class LabirinthImpl implements Labirinth {
 
     @Override
     public int getHeight() {
-        return 0;
+        return height;
     }
 
     @Override
     public int getWidth() {
-        return 0;
+        return width;
     }
 
     @Override
     public long getSeed() {
-        return 0;
+        return rnd.getSeed();
     }
 
     @Override

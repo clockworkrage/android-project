@@ -28,6 +28,12 @@
             android:layout_toRightOf="@+id/rooms_container"
             android:layout_toEndOf="@+id/rooms_container" />
 
+        <FrameLayout
+            android:id="@+id/replays_container"
+            android:layout_width="260dp"
+            android:layout_height="match_parent"
+            />
+
         <ProgressBar
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
@@ -40,6 +46,7 @@
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"/>
     </RelativeLayout>
+
     <!-- The navigation drawer -->
     <RelativeLayout
         android:layout_width="280dp"

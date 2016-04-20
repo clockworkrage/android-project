@@ -18,6 +18,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements BaseColumns{
     public static final String COLUMN_REPLAYS_WIDTH = "width";
     public static final String COLUMN_REPLAYS_HEIGHT = "height";
     public static final String COLUMN_REPLAYS_PATH = "path";
+    public static final String COLUMN_REPLAYS_LENGTH = "length";
     public static final String COLUMN_REPLAYS_DATE = "date";
 
     private static final String DATABASE_CREATE_SCRIPT = "create table " + TABLE_REPLAYS + " (" +
@@ -26,6 +27,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements BaseColumns{
             COLUMN_REPLAYS_HEIGHT + " integer not null, " +
             COLUMN_REPLAYS_WIDTH + " integer not null, " +
             COLUMN_REPLAYS_DATE + " text not null, " +
+            COLUMN_REPLAYS_LENGTH + " integer not null, " +
             COLUMN_REPLAYS_PATH + " text not null);";
 
     public DatabaseHelper(Context context){
@@ -42,7 +44,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements BaseColumns{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        //db.execSQL(DATABASE_CREATE_SCRIPT);
+        db.execSQL(DATABASE_CREATE_SCRIPT);
     }
 
     @Override
