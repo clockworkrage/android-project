@@ -34,6 +34,10 @@
         <item name="android:textSize">@dimen/font_size</item>
     </style>
 
+    <style name="MainButton.Wide">
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
     <style name="NavBar">
         <item name="android:background">#FFFFFF</item>
     </style>
