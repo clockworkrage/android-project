@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.labyrinth.team01.labyrinth.game.Labirinth;
 import com.labyrinth.team01.labyrinth.game.LabirinthImpl;
+import com.labyrinth.team01.labyrinth.game.RandomHelper;
 import com.labyrinth.team01.labyrinth.game.TypeLabirinthsCells;
 import com.labyrinth.team01.labyrinth.game.Vec2d;
 import com.labyrinth.team01.labyrinth.utils.DatabaseHelper;
@@ -23,7 +24,7 @@ import java.util.Date;
  */
 public class GameActivity extends Activity {
     private TextView text;
-    private int size = 5;
+    private int size = RandomHelper.sRand(5, 25);
     private Labirinth labirinth = new LabirinthImpl(size, size);
     private StringBuilder playerPath = new StringBuilder();
     private Vec2d pos = labirinth.getStartPosition();
