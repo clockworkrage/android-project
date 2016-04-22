@@ -42,5 +42,7 @@
         <item name="android:background">#FFFFFF</item>
     </style>
 
-
+    <style name="ToolbarColoredBackArrow" parent="AppTheme">
+        <item name="android:textColorSecondary">@color/colorGray</item>
+    </style>
 </resources>

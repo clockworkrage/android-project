@@ -16,7 +16,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
         <activity android:name=".GameActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,12 +25,14 @@
         </activity>
 
         <activity android:name=".ReplayActivity">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
         
         <activity android:name=".Splash">
             <intent-filter>
@@ -41,6 +42,7 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".SettingsActivity"></activity>
     </application>
 
 </manifest>

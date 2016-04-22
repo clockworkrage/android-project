@@ -11,7 +11,7 @@ import android.provider.BaseColumns;
  */
 public class DatabaseHelper extends SQLiteOpenHelper implements BaseColumns{
     private static final String DATABASE_NAME = "labirinth.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     public static final String TABLE_REPLAYS = "replays";
     public static final String COLUMN_REPLAYS_SEED = "seed";
@@ -23,7 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements BaseColumns{
 
     private static final String DATABASE_CREATE_SCRIPT = "create table " + TABLE_REPLAYS + " (" +
             BaseColumns._ID + " integer primary key autoincrement, " +
-            COLUMN_REPLAYS_SEED + " integer not null, " +
+            COLUMN_REPLAYS_SEED + " text not null, " +
             COLUMN_REPLAYS_HEIGHT + " integer not null, " +
             COLUMN_REPLAYS_WIDTH + " integer not null, " +
             COLUMN_REPLAYS_DATE + " text not null, " +
@@ -49,6 +49,7 @@ public class DatabaseHelper extends SQLiteOpenHelper implements BaseColumns{
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        db.execSQL("drop table if exists " + TABLE_REPLAYS + ";");
+        onCreate(db);
     }
 }

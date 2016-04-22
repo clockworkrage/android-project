@@ -25,9 +25,9 @@ public class ReplayActivity extends Activity {
     private Labirinth labirinth;
     private int width;
     private int height;
-    private int seed;
+    private long seed;
     private Vec2d pos = new Vec2d();
-    private int step = 0;
+    private int step = -1;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,7 +54,7 @@ public class ReplayActivity extends Activity {
 
         cursor.moveToFirst();
         path = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_REPLAYS_PATH));
-        seed = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_REPLAYS_SEED));
+        seed = Long.parseLong(cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_REPLAYS_SEED)));
         width = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_REPLAYS_WIDTH));
         height = cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_REPLAYS_HEIGHT));
         cursor.close();
@@ -76,7 +76,12 @@ public class ReplayActivity extends Activity {
     }
 
     public void onClickNext(View view){
-        updPos(path.charAt(step));
+        if(step >= path.length()){
+            return;
+        }
+        if(step != -1) {
+            updPos(path.charAt(step));
+        }
         StringBuilder stringBuilder = new StringBuilder();
         for(int i=-3; i<4; ++i){
             for(int j=-3; j<4; ++j){

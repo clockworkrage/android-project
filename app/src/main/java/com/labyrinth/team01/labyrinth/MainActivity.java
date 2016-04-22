@@ -1,19 +1,30 @@
 package com.labyrinth.team01.labyrinth;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.support.v7.app.ActionBar;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+
 import android.widget.ProgressBar;
 
 import com.labyrinth.team01.labyrinth.fragments.DetailRoomFragment;
@@ -31,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
 
     private ListView mDrawerList;
     private ArrayAdapter<String> mAdapter;
-
+    private ActionBarDrawerToggle mDrawerToggle;
     private String[] mScreenTitles;
 
     private ProgressBar progressBar;
@@ -42,7 +53,22 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences sPref = getSharedPreferences(getString(R.string.pref_file), Context.MODE_PRIVATE);
+        String defaultValue = getResources().getString(R.string.style_pref_default);
+        String appStyle = sPref.getString(getString(R.string.style_pref), defaultValue);
+        if(appStyle.equals(getString(R.string.style_pref_dark))) {
+            setTheme(R.style.DarkTheme);
+        } else
+            setTheme(R.style.AppTheme);
+
         setContentView(R.layout.activity_main);
+
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setHomeButtonEnabled(true);
+        }
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
@@ -78,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
                     Intent intent = new Intent(MainActivity.this, GameActivity.class);
                     startActivity(intent);
                 }
+
                 if(position == 1) {
                     //Получение списка комнат
                     GetRoomListTask task = new GetRoomListTask();
@@ -87,8 +114,32 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
                     GetReplaysListTask task = new GetReplaysListTask();
                     task.execute();
                 }
+                if(position == 3) {
+                    Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                    startActivity(intent);
+                }
+
             }
         });
+
+        Toolbar toolbar = (Toolbar)  findViewById(R.id.toolbar);
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+        mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar
+                , R.string.drawer_open, R.string.drawer_close) {
+
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                invalidateOptionsMenu();
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                invalidateOptionsMenu();
+            }
+
+        };
+
+        drawerLayout.setDrawerListener(mDrawerToggle);
     }
 
 
@@ -131,7 +182,6 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
             }
             return null;
         }
-
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
@@ -142,6 +192,7 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
             task.roomId = 0; //Первая комната
             task.execute();
         }
+
     }
 
     class GetRoomDetailTask extends AsyncTask<Integer, Void, Integer> {
@@ -223,3 +274,5 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
     }
 
 }
+
+

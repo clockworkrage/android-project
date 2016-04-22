@@ -2,6 +2,8 @@ package com.labyrinth.team01.labyrinth;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -33,6 +35,14 @@ public class GameActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences sPref = getSharedPreferences(getString(R.string.pref_file), Context.MODE_PRIVATE);
+        String defaultValue = getResources().getString(R.string.style_pref_default);
+        String appStyle = sPref.getString(getString(R.string.style_pref), defaultValue);
+        if(appStyle.equals(getString(R.string.style_pref_dark))) {
+            setTheme(R.style.DarkTheme);
+        } else
+            setTheme(R.style.AppTheme);
 
         setContentView(R.layout.activity_game);
         text = (TextView) findViewById(R.id.textView);
@@ -72,7 +82,7 @@ public class GameActivity extends Activity {
 
     private void writeReplay(String path){
         ContentValues values = new ContentValues();
-        values.put(DatabaseHelper.COLUMN_REPLAYS_SEED, labirinth.getSeed());
+        values.put(DatabaseHelper.COLUMN_REPLAYS_SEED, Long.toString(labirinth.getSeed()));
         values.put(DatabaseHelper.COLUMN_REPLAYS_HEIGHT, labirinth.getHeight());
         values.put(DatabaseHelper.COLUMN_REPLAYS_WIDTH, labirinth.getWidth());
         values.put(DatabaseHelper.COLUMN_REPLAYS_DATE, Long.toString(new Date().getTime()));

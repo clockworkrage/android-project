@@ -23,7 +23,7 @@ public class LabirinthImpl implements Labirinth {
         }
     }
 
-    public LabirinthImpl(int width, int height, int seed){
+    public LabirinthImpl(int width, int height, long seed){
         this.height = height;
         this.width = width;
         repaireSize();
