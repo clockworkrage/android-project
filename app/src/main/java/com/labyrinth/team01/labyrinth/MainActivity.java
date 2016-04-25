@@ -273,6 +273,26 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
         }
     }
 
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+            if(mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+                mDrawerLayout.closeDrawer(Gravity.LEFT);
+            } else
+                mDrawerLayout.openDrawer(Gravity.LEFT);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
 }
 
 
