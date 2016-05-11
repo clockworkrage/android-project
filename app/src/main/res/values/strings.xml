@@ -2,9 +2,13 @@
     <string name="app_name">Labyrinth</string>
     <string name="join_game">Присоединиться</string>
     <string name="create_game">Создать новую комнату</string>
+    <string name="create_room">Создать</string>
     <string name="game_resourse">^</string>
+    <string name="server_ip">52.36.179.93</string>
     <string name="setting_name_style">Стиль:</string>
     <string name="setting_button_submit">Сохранить</string>
+    <string name="room_name">Комната</string>
+    <string name="room_warn">Комнат нет</string>
     <string name="style_pref">app_style</string>
     <string name="style_pref_default">Dark</string>
     <string name="style_pref_dark">Dark</string>
@@ -26,5 +30,24 @@
         <item>Light</item>
     </string-array>
     <string name="list_replays_is_empty">List is Empty</string>
-
+    <string name="step_time_string">Время хода:</string>
+    <string-array name="romm_size_array">
+        <item>15</item>
+        <item>30</item>
+        <item>45</item>
+    </string-array>
+    <string-array name="delay_array">
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+    </string-array>
+    <string-array name="max_players_array">
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+    <string-array name="min_players_array">
+        <item>2</item>
+        <item>3</item>
+    </string-array>
 </resources>

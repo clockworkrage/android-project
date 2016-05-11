@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:text="Размер комнаты:"
+            />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner_room_size"
+            android:spinnerMode="dropdown"
+            android:gravity="center_vertical" />
+
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/label_step_time2"
+            android:text="@string/step_time_string"/>
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner_delay"
+            android:spinnerMode="dropdown"
+            android:gravity="center_vertical" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:text="Игроков max:"
+            android:id="@+id/label_max_players2"/>
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner_max_players"
+            android:spinnerMode="dropdown"
+            android:gravity="center_vertical" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:text="Игроков min:"
+            android:id="@+id/label_min_players2"/>
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner_min_palyers"
+            android:spinnerMode="dropdown"
+            android:gravity="center_vertical" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:text="Пароль:"
+            android:id="@+id/label_game_password2"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/room_password"
+            />
+
+    </TableRow>
+    <Button
+        style="@style/MainButton.Wide"
+        android:text="@string/create_room"
+        android:id="@+id/create_room_button"/>
+</TableLayout>

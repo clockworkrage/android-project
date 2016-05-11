@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,10 +33,24 @@ import com.labyrinth.team01.labyrinth.fragments.ListRoomsFragment;
 import com.labyrinth.team01.labyrinth.fragments.ReplayListFragment;
 import com.labyrinth.team01.labyrinth.utils.DatabaseHelper;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity implements ListRoomsFragment.OnItemSelectedListener, ReplayListFragment.OnItemSelectedListener {
@@ -46,7 +61,6 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
     private String[] mScreenTitles;
 
     private ProgressBar progressBar;
-
     private DatabaseHelper mDatabaseHelper;
     private SQLiteDatabase mSqLiteDatabase;
 
@@ -153,7 +167,8 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
 
         //Получение данных о комнате
         GetRoomDetailTask task = new GetRoomDetailTask();
-        task.roomId = position;
+        ListRoomsFragment listRoomsFragment = (ListRoomsFragment) getSupportFragmentManager().findFragmentById(R.id.rooms_container);
+        task.roomId = listRoomsFragment.getRoomId(position);
         task.execute();
     }
 
@@ -167,6 +182,8 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
 
     class GetRoomListTask extends AsyncTask<Void, Void, Void> {
 
+        List<String> listRooms = new ArrayList<>();
+
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -175,17 +192,60 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
 
         @Override
         protected Void doInBackground(Void... params) {
+            HttpURLConnection connection = null;
             try {
-                TimeUnit.SECONDS.sleep(1);
-            } catch (InterruptedException e) {
+                URL url = new URL("http://"+ getString(R.string.server_ip)+":8080/api/listroom/");
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                connection.connect();
+                int code = connection.getResponseCode();
+
+                if (code == 200) {
+                    InputStream in = connection.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                    String result = "", line = "";
+                    while ((line = reader.readLine()) != null) {
+                        result += line;
+                    }
+
+                    JSONObject jObject = new JSONObject(result);
+
+                    JSONObject body = jObject.getJSONObject("body");
+
+                    JSONArray rooms = body.getJSONArray("arr");
+
+                    for (int i=0; i < rooms.length(); i++)
+                    {
+                        try {
+                            String roomId = rooms.get(i).toString();
+                            listRooms.add(roomId);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+                connection.disconnect();
+            } catch (ProtocolException e) {
                 e.printStackTrace();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } finally {
+                if (connection != null) {
+                    connection.disconnect();
+                }
             }
             return null;
         }
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            getSupportFragmentManager().beginTransaction().add(R.id.rooms_container, new ListRoomsFragment()).commit();
+            ListRoomsFragment listRoomsFragment = new ListRoomsFragment();
+            listRoomsFragment.setListRooms(listRooms.toArray(new String[0]));
+            getSupportFragmentManager().beginTransaction().add(R.id.rooms_container, listRoomsFragment).commit();
 
             //Получение данных о комнате
             GetRoomDetailTask task = new GetRoomDetailTask();
@@ -195,8 +255,16 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
 
     }
 
-    class GetRoomDetailTask extends AsyncTask<Integer, Void, Integer> {
-        Integer roomId;
+
+
+    class GetRoomDetailTask extends AsyncTask<Void, Void, Void> {
+        Integer roomId = 0;
+        Integer max_players = 0;
+        Integer min_players = 0;
+        Integer players = 0;
+        Integer status = 0;
+        Integer time_step = 0;
+        Boolean is_password = false;
 
         @Override
         protected void onPreExecute() {
@@ -205,20 +273,66 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
         }
 
         @Override
-        protected Integer doInBackground(Integer... params) {
+        protected Void doInBackground(Void... params) {
+            HttpURLConnection connection = null;
             try {
-                TimeUnit.SECONDS.sleep(1); //Запрос на сервер
-            } catch (InterruptedException e) {
+                URL url = new URL("http://"+ getString(R.string.server_ip)+":8080/api/roominfo/?roomId=" + roomId.toString());
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+                //connection.setRequestProperty("roomId", );
+                connection.connect();
+                int code = connection.getResponseCode();
+
+                if (code == 200) {
+                    InputStream in = connection.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+                    String result = "", line = "";
+                    while ((line = reader.readLine()) != null) {
+                        result += line;
+                    }
+
+                    JSONObject jObject = new JSONObject(result);
+                    String type = (String)jObject.get("type");
+                    if (type.equals("room_info")) {
+
+                        JSONObject body = jObject.getJSONObject("body");
+
+                        min_players = (Integer) body.get("min_players");
+                        max_players = (Integer) body.get("max_players");
+                        players = (Integer) body.get("players");
+                        status = (Integer) body.get("status");
+                        time_step = (Integer) body.get("time_step");
+                        is_password = (Boolean) body.get("is_password");
+                    }
+                }
+            } catch (ProtocolException e) {
                 e.printStackTrace();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } finally {
+                if (connection != null) {
+                    connection.disconnect();
+                }
             }
-            return 1;
+                return null;
         }
 
         @Override
-        protected void onPostExecute(Integer result) {
+        protected void onPostExecute(Void result) {
             super.onPostExecute(result);
 
             DetailRoomFragment newFragment = DetailRoomFragment.getInstance(roomId);
+            newFragment.setMin_players(min_players);
+            newFragment.setMax_players(max_players);
+            newFragment.setPlayers(players);
+            newFragment.setStatus(status);
+            newFragment.setTime_step(time_step);
+            newFragment.setIs_password(is_password);
+            newFragment.setRoomId(roomId);
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             transaction.add(R.id.detail_container, newFragment);
             transaction.commit();
