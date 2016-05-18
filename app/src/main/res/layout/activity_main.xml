@@ -6,35 +6,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    tools:openDrawer="start">
+    tools:openDrawer="start"
+    android:background="@drawable/back">
 
     <!-- The main content view -->
     <RelativeLayout
         android:id="@+id/mainContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        >
+        android:layout_centerInParent="true">
 
-
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <TableRow>
-                <FrameLayout
-                    android:id="@+id/detail_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    />
-            </TableRow>
-            <TableRow>
-                <FrameLayout
-                    android:id="@+id/rooms_container"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    />
-            </TableRow>
-        </TableLayout>
+        <FrameLayout
+            android:id="@+id/rooms_container"
+            android:layout_width="260dp"
+            android:layout_height="match_parent"
+            />
+        <FrameLayout
+            android:id="@+id/detail_container"
+            android:layout_width="260dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/rooms_container"
+            android:layout_toEndOf="@+id/rooms_container" />
 
         <FrameLayout
             android:id="@+id/replays_container"
@@ -54,10 +47,9 @@
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"/>
     </RelativeLayout>
-
     <!-- The navigation drawer -->
     <RelativeLayout
-        android:layout_width="match_parent"
+        android:layout_width="280dp"
         android:layout_height="match_parent"
         android:id="@+id/drawerPane"
         android:layout_gravity="start">

@@ -25,7 +25,7 @@ import org.json.JSONObject;
 
 import static com.labyrinth.team01.labyrinth.utils.GameService.*;
 
-public class MiltiplayerGameActivity extends AppCompatActivity implements GameResultsReceiver.Receiver {
+public class MultiplayerGameActivity extends AppCompatActivity implements GameResultsReceiver.Receiver {
     private Integer roomId = 0;
     private String password = "";
     private ProgressBar progressBar;
@@ -127,7 +127,8 @@ public class MiltiplayerGameActivity extends AppCompatActivity implements GameRe
                 break;
             case 2:
                 Integer progress = data.getInt("percent");
-                progressBarStep.setProgress(progress);
+                if (isStarted == true)
+                    progressBarStep.setProgress(progress);
                 break;
         }
     }

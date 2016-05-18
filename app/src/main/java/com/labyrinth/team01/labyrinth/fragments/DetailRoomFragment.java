@@ -10,8 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.labyrinth.team01.labyrinth.CreateRoomActivity;
-import com.labyrinth.team01.labyrinth.MainActivity;
-import com.labyrinth.team01.labyrinth.MiltiplayerGameActivity;
+import com.labyrinth.team01.labyrinth.MultiplayerGameActivity;
 import com.labyrinth.team01.labyrinth.R;
 
 /**
@@ -74,12 +73,36 @@ public class DetailRoomFragment extends Fragment {
         joinButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), MiltiplayerGameActivity.class);
+                Intent intent = new Intent(getContext(), MultiplayerGameActivity.class);
                 intent.putExtra("roomId", roomId.toString());
                 intent.putExtra("password", "");
                 startActivity(intent);
             }
         });
+
+        if (roomId == 0) {
+            TextView roomSizeView = (TextView) view.findViewById(R.id.room_size);
+            TextView roomSizeLabelView = (TextView) view.findViewById(R.id.label_room_size);
+            TextView labelStepTimeView = (TextView) view.findViewById(R.id.label_step_time);
+            TextView labelNumberPlayersView = (TextView) view.findViewById(R.id.label_number_players);
+            TextView labelMaxPlayersView = (TextView) view.findViewById(R.id.label_max_players);
+            TextView labelMinPlayersView = (TextView) view.findViewById(R.id.label_min_players);
+            TextView labelGamePasswordView = (TextView) view.findViewById(R.id.label_game_password);
+            joinButton.setVisibility(View.GONE);
+            minPlayersTextView.setVisibility(View.GONE);
+            maxPlayersTextView.setVisibility(View.GONE);
+            playersTextView.setVisibility(View.GONE);
+            timeStampTextView.setVisibility(View.GONE);
+            passwordTextView.setVisibility(View.GONE);
+
+            roomSizeLabelView.setVisibility(View.GONE);
+            labelStepTimeView.setVisibility(View.GONE);
+            labelNumberPlayersView.setVisibility(View.GONE);
+            labelMaxPlayersView.setVisibility(View.GONE);
+            labelMinPlayersView.setVisibility(View.GONE);
+            labelGamePasswordView.setVisibility(View.GONE);
+            roomSizeView.setVisibility(View.GONE);
+        }
 
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
