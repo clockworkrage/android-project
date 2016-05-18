@@ -122,7 +122,9 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
                 }
                 /**/
                 if (position == 0) {
-                    //logoImage.setVisibility(View.VISIBLE);
+                    if (logoImage != null){
+                        logoImage.setVisibility(View.VISIBLE);
+                    }
                     Intent intent = new Intent(MainActivity.this, GameActivity.class);
                     startActivity(intent);
                 }
@@ -137,6 +139,9 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
                     task.execute();
                 }
                 if(position == 3) {
+                    if (logoImage != null){
+                        logoImage.setVisibility(View.VISIBLE);
+                    }
                     Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                     startActivity(intent);
                 }
