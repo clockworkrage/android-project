@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    tools:openDrawer="start">
+    tools:openDrawer="start"
+    android:background="@drawable/back">
 
     <!-- The main content view -->
     <RelativeLayout
