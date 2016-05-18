@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.support.v7.app.ActionBar;
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
     private ArrayAdapter<String> mAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
     private String[] mScreenTitles;
+//    private ImageView logoImage;
 
     private ProgressBar progressBar;
     private DatabaseHelper mDatabaseHelper;
@@ -68,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         SharedPreferences sPref = getSharedPreferences(getString(R.string.pref_file), Context.MODE_PRIVATE);
         String defaultValue = getResources().getString(R.string.style_pref_default);
@@ -98,13 +101,16 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
         mDrawerList.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ImageView logoImage = (ImageView) findViewById(R.id.logoImageM);
                 DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
                 mDrawerLayout.closeDrawer(Gravity.LEFT);
-
                 DetailRoomFragment oldDetailFragment = (DetailRoomFragment) getSupportFragmentManager().findFragmentById(R.id.detail_container);
                 ListRoomsFragment oldRoomsFragment = (ListRoomsFragment) getSupportFragmentManager().findFragmentById(R.id.rooms_container);
                 ReplayListFragment oldReplayListFragment = (ReplayListFragment) getSupportFragmentManager().findFragmentById(R.id.replays_container);
 
+                if (logoImage != null){
+                    logoImage.setVisibility(View.INVISIBLE);
+                }
                 if (oldDetailFragment != null) {
                     getSupportFragmentManager().beginTransaction().remove(oldDetailFragment).commit();
                 }
@@ -116,6 +122,9 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
                 }
                 /**/
                 if (position == 0) {
+                    if (logoImage != null){
+                        logoImage.setVisibility(View.VISIBLE);
+                    }
                     Intent intent = new Intent(MainActivity.this, GameActivity.class);
                     startActivity(intent);
                 }
@@ -130,6 +139,9 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
                     task.execute();
                 }
                 if(position == 3) {
+                    if (logoImage != null){
+                        logoImage.setVisibility(View.VISIBLE);
+                    }
                     Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                     startActivity(intent);
                 }
