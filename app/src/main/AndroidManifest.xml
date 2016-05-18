@@ -55,7 +55,7 @@
             android:configChanges="orientation|keyboardHidden"/>
         <activity android:name=".MiltiplayerGameActivity"
             android:screenOrientation="portrait"
-            android:configChanges="orientation|keyboardHidden"></activity>
+            android:configChanges="orientation|keyboardHidden"/>
         <service android:name=".utils.GameService" />
     </application>
 
