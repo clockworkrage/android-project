@@ -67,11 +67,16 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
     private DatabaseHelper mDatabaseHelper;
     private SQLiteDatabase mSqLiteDatabase;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
+        ImageView logoImage = (ImageView) findViewById(R.id.logoImageM);
+        if (logoImage != null){
+            logoImage.setVisibility(View.INVISIBLE);
+        }
         SharedPreferences sPref = getSharedPreferences(getString(R.string.pref_file), Context.MODE_PRIVATE);
         String defaultValue = getResources().getString(R.string.style_pref_default);
         String appStyle = sPref.getString(getString(R.string.style_pref), defaultValue);

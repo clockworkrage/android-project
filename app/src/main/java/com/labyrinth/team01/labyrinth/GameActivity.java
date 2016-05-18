@@ -1,7 +1,6 @@
 package com.labyrinth.team01.labyrinth;
 
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
@@ -17,8 +16,6 @@ import com.labyrinth.team01.labyrinth.game.TypeLabirinthsCells;
 import com.labyrinth.team01.labyrinth.game.Vec2d;
 import com.labyrinth.team01.labyrinth.utils.DatabaseHelper;
 
-import java.util.Date;
-
 /**
  * Created by Андрей on 17.04.2016.
  */
@@ -32,6 +29,22 @@ public class GameActivity extends Activity {
 
     private DatabaseHelper mDatabaseHelper;
     private SQLiteDatabase mSqLiteDatabase;
+
+    private static final String KEY_WIDTH = "WIDTH";
+    private static final String KEY_HIDTH = "HIDTH";
+    private static final String KEY_SEED = "SEED";
+    private static final String KEY_PLAYER_PATH = "PLAYER_PATH";
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt(KEY_HIDTH, labirinth.getHeight());
+        outState.putInt(KEY_WIDTH, labirinth.getWidth());
+        outState.putLong(KEY_SEED, labirinth.getSeed());
+        System.out.println("Save seed: " + labirinth.getSeed());
+        outState.putString(KEY_PLAYER_PATH, playerPath.toString());
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,6 +61,26 @@ public class GameActivity extends Activity {
         setContentView(R.layout.activity_game);
         text = (TextView) findViewById(R.id.textView);
         text.setTypeface(Typeface.MONOSPACE);
+
+        if (savedInstanceState != null) {
+            int width = savedInstanceState.getInt(KEY_WIDTH, 0);
+            int height = savedInstanceState.getInt(KEY_WIDTH, 0);
+            long seed = savedInstanceState.getLong(KEY_SEED, 0);
+            playerPath.append(savedInstanceState.getString(KEY_PLAYER_PATH));
+            System.out.println("Saved seed: " + seed);
+            labirinth = new LabirinthImpl(width, height, seed);
+            pos = labirinth.getStartPosition();
+            String temp = playerPath.toString();
+            for(int i=0; i<temp.length(); ++i){
+                switch (temp.charAt(i)){
+                    case 'w': onClickTop(null); break;
+                    case 's': onClickBottom(null); break;
+                    case 'a': onClickLeft(null); break;
+                    case 'd': onClickRight(null); break;
+                }
+            }
+        }
+
         updateLabirinth();
 
         mDatabaseHelper = new DatabaseHelper(this);

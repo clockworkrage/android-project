@@ -55,9 +55,10 @@ public class ListRoomsFragment extends ListFragment implements SwipeRefreshLayou
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ArrayList<String> listDrawRooms = new ArrayList<>();
-        for (String roomId:
-                listRooms) {
-            listDrawRooms.add(getResources().getString(R.string.room_name) + " " + roomId);
+        if(listRooms != null) {
+            for (String roomId : listRooms) {
+                listDrawRooms.add(getResources().getString(R.string.room_name) + " " + roomId);
+            }
         }
 
         if (listDrawRooms.size() == 0)
