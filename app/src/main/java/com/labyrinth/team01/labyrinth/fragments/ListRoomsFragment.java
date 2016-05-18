@@ -71,6 +71,7 @@ public class ListRoomsFragment extends ListFragment implements SwipeRefreshLayou
         ListArrayAdapter = new ArrayAdapter<String>(inflater.getContext(), R.layout.room_list_item ,
                 listDrawRooms);
         setListAdapter(ListArrayAdapter);
+
         return view;
     }
 

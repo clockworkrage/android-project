@@ -82,14 +82,7 @@ public class GameActivity extends Activity {
     }
 
     private void writeReplay(String path){
-        ContentValues values = new ContentValues();
-        values.put(DatabaseHelper.COLUMN_REPLAYS_SEED, Long.toString(labirinth.getSeed()));
-        values.put(DatabaseHelper.COLUMN_REPLAYS_HEIGHT, labirinth.getHeight());
-        values.put(DatabaseHelper.COLUMN_REPLAYS_WIDTH, labirinth.getWidth());
-        values.put(DatabaseHelper.COLUMN_REPLAYS_DATE, Long.toString(new Date().getTime()));
-        values.put(DatabaseHelper.COLUMN_REPLAYS_PATH, path);
-        values.put(DatabaseHelper.COLUMN_REPLAYS_LENGTH, path.length());
-        mSqLiteDatabase.insert(DatabaseHelper.TABLE_REPLAYS, null, values);
+        mDatabaseHelper.savePassage(mSqLiteDatabase, labirinth.getSeed(), labirinth.getHeight(), labirinth.getWidth(), path);
     }
 
     private void step(){

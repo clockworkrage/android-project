@@ -11,9 +11,6 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 
-import com.labyrinth.team01.labyrinth.fragments.ListRoomsFragment;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -149,7 +146,7 @@ public class CreateRoomActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            Intent intent = new Intent(getBaseContext(), MiltiplayerGameActivity.class);
+            Intent intent = new Intent(getBaseContext(), MultiplayerGameActivity.class);
             intent.putExtra("roomId", roomId.toString());
             intent.putExtra("password", "");
             startActivity(intent);

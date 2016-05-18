@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true">
 
     <TableLayout
         android:layout_width="match_parent"
@@ -14,6 +16,7 @@
 
             <TextView
                 android:text="Размер комнаты:"
+                android:id="@+id/label_room_size"
                 />
 
             <TextView

@@ -1,10 +1,13 @@
 package com.labyrinth.team01.labyrinth.utils;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
+
+import java.util.Date;
 
 /**
  * Created by Андрей on 19.04.2016.
@@ -51,5 +54,16 @@ public class DatabaseHelper extends SQLiteOpenHelper implements BaseColumns{
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("drop table if exists " + TABLE_REPLAYS + ";");
         onCreate(db);
+    }
+
+    public void savePassage(SQLiteDatabase mSqLiteDatabase, long seed, int height, int width, String path){
+        ContentValues values = new ContentValues();
+        values.put(DatabaseHelper.COLUMN_REPLAYS_SEED, Long.toString(seed));
+        values.put(DatabaseHelper.COLUMN_REPLAYS_HEIGHT, height);
+        values.put(DatabaseHelper.COLUMN_REPLAYS_WIDTH, width);
+        values.put(DatabaseHelper.COLUMN_REPLAYS_DATE, Long.toString(new Date().getTime()));
+        values.put(DatabaseHelper.COLUMN_REPLAYS_PATH, path);
+        values.put(DatabaseHelper.COLUMN_REPLAYS_LENGTH, path.length());
+        mSqLiteDatabase.insert(DatabaseHelper.TABLE_REPLAYS, null, values);
     }
 }

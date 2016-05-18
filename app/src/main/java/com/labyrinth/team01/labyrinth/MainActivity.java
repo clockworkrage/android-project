@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
+import android.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -255,9 +256,15 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
             getSupportFragmentManager().beginTransaction().add(R.id.rooms_container, listRoomsFragment).commit();
 
             //Получение данных о комнате
-            GetRoomDetailTask task = new GetRoomDetailTask();
-            task.roomId = 0; //Первая комната
-            task.execute();
+            boolean tabletSize = getResources().getBoolean(R.bool.isTablet);
+            if (tabletSize) {
+                GetRoomDetailTask task = new GetRoomDetailTask();
+                task.roomId = 0; //Первая комната
+                task.execute();
+            }else {
+                progressBar.setVisibility(View.GONE);
+            }
+
         }
 
     }
@@ -332,17 +339,30 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
 
-            DetailRoomFragment newFragment = DetailRoomFragment.getInstance(roomId);
-            newFragment.setMin_players(min_players);
-            newFragment.setMax_players(max_players);
-            newFragment.setPlayers(players);
-            newFragment.setStatus(status);
-            newFragment.setTime_step(time_step);
-            newFragment.setIs_password(is_password);
-            newFragment.setRoomId(roomId);
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.add(R.id.detail_container, newFragment);
-            transaction.commit();
+            boolean tabletSize = getResources().getBoolean(R.bool.isTablet);
+            if (tabletSize) {
+                DetailRoomFragment newFragment = DetailRoomFragment.getInstance(roomId);
+                newFragment.setMin_players(min_players);
+                newFragment.setMax_players(max_players);
+                newFragment.setPlayers(players);
+                newFragment.setStatus(status);
+                newFragment.setTime_step(time_step);
+                newFragment.setIs_password(is_password);
+                newFragment.setRoomId(roomId);
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.add(R.id.detail_container, newFragment);
+                transaction.commit();
+            } else {
+                Intent intent = new Intent(MainActivity.this, RoomDetailActivity.class);
+                intent.putExtra("min_players", min_players);
+                intent.putExtra("max_players", max_players);
+                intent.putExtra("players", players);
+                intent.putExtra("status", status);
+                intent.putExtra("time_step", time_step);
+                intent.putExtra("is_password", is_password);
+                intent.putExtra("roomId", roomId);
+                startActivity(intent);
+            }
             progressBar.setVisibility(View.GONE);
         }
     }
