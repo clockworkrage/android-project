@@ -35,6 +35,10 @@ public class MultiplayerGameActivity extends AppCompatActivity implements GameRe
     private String gameArea;
     private Boolean isStarted = false;
     private Boolean isWin = false;
+
+    private StringBuilder playerPath = new StringBuilder();
+    private char lastDirect;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

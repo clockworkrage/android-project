@@ -71,7 +71,6 @@ public class GameService extends Service {
                                         data.putString("status", "finished");
                                         receiver.send(1, data);
                                         break;
-
                                 }
 
                             }
