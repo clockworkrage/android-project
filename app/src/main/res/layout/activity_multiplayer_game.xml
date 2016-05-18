@@ -19,7 +19,7 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:background="@drawable/arrow_up"
+        android:background="@drawable/button_arrow_up_image"
         android:id="@+id/button"
         android:onClick="onClickTop"
         android:layout_gravity="center_horizontal" />
@@ -35,7 +35,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginRight="20dp"
-                android:background="@drawable/arrow_left"
+                android:background="@drawable/button_arrow_left_image"
                 android:onClick="onClickLeft"
                 android:id="@+id/button3" />
             <Button
@@ -43,7 +43,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_marginLeft="20dp"
-                android:background="@drawable/arrow_right"
+                android:background="@drawable/button_arrow_right_image"
                 android:onClick="onClickRight"
                 android:id="@+id/button4" />
 
@@ -54,7 +54,7 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:background="@drawable/arrow_down"
+        android:background="@drawable/button_arrow_down_image"
         android:id="@+id/button2"
         android:onClick="onClickBottom"
         android:layout_gravity="center_horizontal" />
