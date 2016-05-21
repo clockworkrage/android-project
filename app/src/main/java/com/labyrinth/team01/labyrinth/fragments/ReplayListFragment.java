@@ -1,6 +1,8 @@
 package com.labyrinth.team01.labyrinth.fragments;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
@@ -15,7 +17,7 @@ import com.labyrinth.team01.labyrinth.R;
  * Created by Андрей on 20.04.2016.
  */
 public class ReplayListFragment extends ListFragment {
-    String[] listReplays = new String[]{"qweret"};
+    String[] listReplays = new String[]{""};
 
     public void setListReplays(String[] listReplays) {
         this.listReplays = listReplays;
