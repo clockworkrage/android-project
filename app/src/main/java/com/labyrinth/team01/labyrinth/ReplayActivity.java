@@ -31,6 +31,15 @@ public class ReplayActivity extends Activity {
     private Vec2d pos = new Vec2d();
     private int step = -1;
 
+
+    private static final String KEY_STEP = "STEP";
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(KEY_STEP, step);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,6 +82,21 @@ public class ReplayActivity extends Activity {
 
         labirinth = new LabirinthImpl(width, height, seed);
         pos = labirinth.getStartPosition();
+
+        if (savedInstanceState != null) {
+            int i = savedInstanceState.getInt(KEY_STEP, -1);
+            for(; i>0; --i){
+                if(step != -1 && step < path.length()) {
+                    updPos(path.charAt(step));
+                }
+                text.setText(getField(pos));
+                ++step;
+                if(step == path.length()){
+                    ifWin();
+                }
+            }
+        }
+
         onClickNext(null);
     }
 
@@ -93,23 +117,27 @@ public class ReplayActivity extends Activity {
         if(step != -1) {
             updPos(path.charAt(step));
         }
+        text.setText(getField(pos));
+        ++step;
+        if(step == path.length()){
+            ifWin();
+        }
+    }
+
+    private String getField(Vec2d p){
         StringBuilder stringBuilder = new StringBuilder();
         for(int i=-3; i<4; ++i){
             for(int j=-3; j<4; ++j){
                 if(i==0 && j==0){
                     stringBuilder.append("OO");
                 } else {
-                    stringBuilder.append(TypeLabirinthsCells.getChar(labirinth.getCell((int) pos.x + i, (int) pos.y + j)));
-                    stringBuilder.append(TypeLabirinthsCells.getChar(labirinth.getCell((int) pos.x + i, (int) pos.y + j)));
+                    stringBuilder.append(TypeLabirinthsCells.getChar(labirinth.getCell((int) p.x + i, (int) p.y + j)));
+                    stringBuilder.append(TypeLabirinthsCells.getChar(labirinth.getCell((int) p.x + i, (int) p.y + j)));
                 }
             }
             stringBuilder.append('\n');
         }
-        text.setText(stringBuilder.toString());
-        ++step;
-        if(step == path.length()){
-            ifWin();
-        }
+        return  stringBuilder.toString();
     }
 
     private void ifWin(){
