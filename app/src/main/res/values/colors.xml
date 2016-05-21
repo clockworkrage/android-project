@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--colors by default -->
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#3016B0</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGray">#212121</color>
-    <!--colors for dark theme-->
-    <color name="colorDarkRed">#471921</color>
-    <color name="colorSand">#A19D57</color>
+    <!-- colors for dark theme -->
+    <color name="colorBrightOrange">#FFA200</color>
+    <color name="colorDarkBlue">#3C2D84</color>
+    <color name="colorPrimaryDark">#190773</color>
+    <color name="colorLightBlue">#8170D8</color>
+    <!-- old colors -->
     <color name="colorPrimaryRed">#944251</color>
-    <color name="colorDarkBlue">#214F61</color>
-    <color name="colorLightBlue">#59B9E0</color>
+    <color name="colorDarkRed">#471921</color>
+    <color name="colorAccent">#FF4081</color>
 </resources>
