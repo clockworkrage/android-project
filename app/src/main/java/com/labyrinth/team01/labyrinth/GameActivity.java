@@ -55,8 +55,9 @@ public class GameActivity extends Activity {
         String appStyle = sPref.getString(getString(R.string.style_pref), defaultValue);
         if(appStyle.equals(getString(R.string.style_pref_dark))) {
             setTheme(R.style.DarkTheme);
-        } else
+        } else {
             setTheme(R.style.AppTheme);
+        }
 
         setContentView(R.layout.activity_game);
         text = (TextView) findViewById(R.id.textView);
