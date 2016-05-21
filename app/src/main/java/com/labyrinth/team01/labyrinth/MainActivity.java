@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -29,6 +30,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.labyrinth.team01.labyrinth.fragments.DetailRoomFragment;
 import com.labyrinth.team01.labyrinth.fragments.ListRoomsFragment;
@@ -73,9 +75,9 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ImageView logoImage = (ImageView) findViewById(R.id.logoImageM);
-        if (logoImage != null){
-            logoImage.setVisibility(View.INVISIBLE);
+        RelativeLayout mainContent = (RelativeLayout) findViewById(R.id.mainContent);
+        if (mainContent != null){
+            mainContent.setBackgroundColor(Color.TRANSPARENT);
         }
         SharedPreferences sPref = getSharedPreferences(getString(R.string.pref_file), Context.MODE_PRIVATE);
         String defaultValue = getResources().getString(R.string.style_pref_default);
@@ -107,47 +109,47 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
         mDrawerList.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ImageView logoImage = (ImageView) findViewById(R.id.logoImageM);
                 DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
+                RelativeLayout mainContent = (RelativeLayout) findViewById(R.id.mainContent);
                 mDrawerLayout.closeDrawer(Gravity.LEFT);
                 DetailRoomFragment oldDetailFragment = (DetailRoomFragment) getSupportFragmentManager().findFragmentById(R.id.detail_container);
                 ListRoomsFragment oldRoomsFragment = (ListRoomsFragment) getSupportFragmentManager().findFragmentById(R.id.rooms_container);
                 ReplayListFragment oldReplayListFragment = (ReplayListFragment) getSupportFragmentManager().findFragmentById(R.id.replays_container);
 
-                if (logoImage != null){
-                    logoImage.setVisibility(View.INVISIBLE);
-                }
-                if (oldDetailFragment != null) {
-                    getSupportFragmentManager().beginTransaction().remove(oldDetailFragment).commit();
-                }
-                if (oldRoomsFragment != null) {
-                    getSupportFragmentManager().beginTransaction().remove(oldRoomsFragment).commit();
-                }
-                if (oldReplayListFragment != null){
-                    getSupportFragmentManager().beginTransaction().remove(oldReplayListFragment).commit();
+                if(    position != 0
+                    && position != 3) {
+                    if (oldDetailFragment != null) {
+                        getSupportFragmentManager().beginTransaction().remove(oldDetailFragment).commit();
+                    }
+                    if (oldRoomsFragment != null) {
+                        getSupportFragmentManager().beginTransaction().remove(oldRoomsFragment).commit();
+                    }
+                    if (oldReplayListFragment != null) {
+                        getSupportFragmentManager().beginTransaction().remove(oldReplayListFragment).commit();
+                    }
                 }
                 /**/
                 if (position == 0) {
-                    if (logoImage != null){
-                        logoImage.setVisibility(View.VISIBLE);
-                    }
                     Intent intent = new Intent(MainActivity.this, GameActivity.class);
                     startActivity(intent);
                 }
 
                 if(position == 1) {
+                    if (mainContent != null){
+                        mainContent.setBackgroundColor(Color.TRANSPARENT);
+                    }
                     //Получение списка комнат
                     GetRoomListTask task = new GetRoomListTask();
                     task.execute();
                 }
                 if(position == 2){
+                    if (mainContent != null){
+                        mainContent.setBackgroundColor(Color.TRANSPARENT);
+                    }
                     GetReplaysListTask task = new GetReplaysListTask();
                     task.execute();
                 }
                 if(position == 3) {
-                    if (logoImage != null){
-                        logoImage.setVisibility(View.VISIBLE);
-                    }
                     Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                     startActivity(intent);
                 }
