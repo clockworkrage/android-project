@@ -82,8 +82,9 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
         String appStyle = sPref.getString(getString(R.string.style_pref), defaultValue);
         if(appStyle.equals(getString(R.string.style_pref_dark))) {
             setTheme(R.style.DarkTheme);
-        } else
+        } else {
             setTheme(R.style.AppTheme);
+        }
 
         setContentView(R.layout.activity_main);
 
