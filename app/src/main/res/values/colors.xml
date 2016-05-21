@@ -4,6 +4,7 @@
     <color name="colorPrimary">#3016B0</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGray">#212121</color>
+    <color name="colorAccent">#FF4081</color>
     <!-- colors for dark theme -->
     <color name="colorBrightOrange">#FFA200</color>
     <color name="colorDarkBlue">#3C2D84</color>
@@ -12,5 +13,4 @@
     <!-- old colors -->
     <color name="colorPrimaryRed">#944251</color>
     <color name="colorDarkRed">#471921</color>
-    <color name="colorAccent">#FF4081</color>
 </resources>
