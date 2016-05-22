@@ -39,6 +39,13 @@ public class MultiplayerGameActivity extends AppCompatActivity implements GameRe
     private StringBuilder playerPath = new StringBuilder();
     private char lastDirect;
 
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

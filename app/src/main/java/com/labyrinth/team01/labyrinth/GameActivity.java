@@ -42,7 +42,6 @@ public class GameActivity extends Activity {
         outState.putInt(KEY_HIDTH, labirinth.getHeight());
         outState.putInt(KEY_WIDTH, labirinth.getWidth());
         outState.putLong(KEY_SEED, labirinth.getSeed());
-        System.out.println("Save seed: " + labirinth.getSeed());
         outState.putString(KEY_PLAYER_PATH, playerPath.toString());
     }
 
@@ -55,8 +54,9 @@ public class GameActivity extends Activity {
         String appStyle = sPref.getString(getString(R.string.style_pref), defaultValue);
         if(appStyle.equals(getString(R.string.style_pref_dark))) {
             setTheme(R.style.DarkTheme);
-        } else
+        } else {
             setTheme(R.style.AppTheme);
+        }
 
         setContentView(R.layout.activity_game);
         text = (TextView) findViewById(R.id.textView);

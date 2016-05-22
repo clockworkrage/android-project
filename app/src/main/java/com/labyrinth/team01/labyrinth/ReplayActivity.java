@@ -1,6 +1,8 @@
 package com.labyrinth.team01.labyrinth;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -29,9 +31,27 @@ public class ReplayActivity extends Activity {
     private Vec2d pos = new Vec2d();
     private int step = -1;
 
+
+    private static final String KEY_STEP = "STEP";
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(KEY_STEP, step);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences sPref = getSharedPreferences(getString(R.string.pref_file), Context.MODE_PRIVATE);
+        String defaultValue = getResources().getString(R.string.style_pref_default);
+        String appStyle = sPref.getString(getString(R.string.style_pref), defaultValue);
+        if(appStyle.equals(getString(R.string.style_pref_dark))) {
+            setTheme(R.style.DarkTheme);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
 
         setContentView(R.layout.activity_replays);
         text = (TextView) findViewById(R.id.replayField);
@@ -62,6 +82,21 @@ public class ReplayActivity extends Activity {
 
         labirinth = new LabirinthImpl(width, height, seed);
         pos = labirinth.getStartPosition();
+
+        if (savedInstanceState != null) {
+            int i = savedInstanceState.getInt(KEY_STEP, -1);
+            for(; i>0; --i){
+                if(step != -1 && step < path.length()) {
+                    updPos(path.charAt(step));
+                }
+                text.setText(getField(pos));
+                ++step;
+                if(step == path.length()){
+                    ifWin();
+                }
+            }
+        }
+
         onClickNext(null);
     }
 
@@ -82,23 +117,27 @@ public class ReplayActivity extends Activity {
         if(step != -1) {
             updPos(path.charAt(step));
         }
+        text.setText(getField(pos));
+        ++step;
+        if(step == path.length()){
+            ifWin();
+        }
+    }
+
+    private String getField(Vec2d p){
         StringBuilder stringBuilder = new StringBuilder();
         for(int i=-3; i<4; ++i){
             for(int j=-3; j<4; ++j){
                 if(i==0 && j==0){
                     stringBuilder.append("OO");
                 } else {
-                    stringBuilder.append(TypeLabirinthsCells.getChar(labirinth.getCell((int) pos.x + i, (int) pos.y + j)));
-                    stringBuilder.append(TypeLabirinthsCells.getChar(labirinth.getCell((int) pos.x + i, (int) pos.y + j)));
+                    stringBuilder.append(TypeLabirinthsCells.getChar(labirinth.getCell((int) p.x + i, (int) p.y + j)));
+                    stringBuilder.append(TypeLabirinthsCells.getChar(labirinth.getCell((int) p.x + i, (int) p.y + j)));
                 }
             }
             stringBuilder.append('\n');
         }
-        text.setText(stringBuilder.toString());
-        ++step;
-        if(step == path.length()){
-            ifWin();
-        }
+        return  stringBuilder.toString();
     }
 
     private void ifWin(){

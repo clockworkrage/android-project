@@ -11,9 +11,9 @@
     </style>
 
     <style name="DarkTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
-        <item name="colorPrimary">@color/colorDarkRed</item>
-        <item name="colorPrimaryDark">@color/colorDarkBlue</item>
-        <item name="colorAccent">@color/colorSand</item>
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorLightBlue</item>
+        <item name="colorAccent">@color/colorBrightOrange</item>
         <item name="android:textViewStyle">@style/MainFont.Ligth</item>
         <item name="android:windowBackground">@color/colorGray</item>
     </style>

@@ -12,16 +12,10 @@
     <!-- The main content view -->
     <RelativeLayout
         android:id="@+id/mainContent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/logoImageM"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/splash" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:background="@drawable/splash">
 
         <FrameLayout
             android:id="@+id/rooms_container"
