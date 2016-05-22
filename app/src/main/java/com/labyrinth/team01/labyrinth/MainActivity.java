@@ -288,6 +288,7 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
         Integer players = 0;
         Integer status = 0;
         Integer time_step = 0;
+        Integer room_size = 0;
         Boolean is_password = false;
 
         @Override
@@ -326,6 +327,7 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
                         players = (Integer) body.get("players");
                         status = (Integer) body.get("status");
                         time_step = (Integer) body.get("time_step");
+                        //room_size = (Integer) body.get("");
                         is_password = (Boolean) body.get("is_password");
                     }
                 }
