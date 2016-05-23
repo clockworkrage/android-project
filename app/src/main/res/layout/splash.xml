@@ -6,9 +6,8 @@
     tools:context=".Splash">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:id="@+id/logoImage"
-        android:layout_gravity="center_horizontal"
-        android:src="@drawable/splash" />
+        android:background="@drawable/splash" />
 </LinearLayout>
