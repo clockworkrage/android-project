@@ -24,7 +24,7 @@ public class RoomDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.room_detail);
+        setContentView(R.layout.room_detail_layout);
 
         min_players = getIntent().getIntExtra("min_players", 0);
         max_players = getIntent().getIntExtra("max_players", 0);
@@ -52,8 +52,6 @@ public class RoomDetailActivity extends AppCompatActivity {
         }
 
         Button joinButton = (Button) findViewById(R.id.join_game);
-        Button createButton = (Button) findViewById(R.id.create_game);
-
 
         joinButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,13 +87,6 @@ public class RoomDetailActivity extends AppCompatActivity {
             roomSizeView.setVisibility(View.GONE);
         }
 
-        createButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), CreateRoomActivity.class);
-                startActivity(intent);
-            }
-        });
 
     }
 }

@@ -19,23 +19,30 @@
 
         <FrameLayout
             android:id="@+id/rooms_container"
-            android:layout_width="260dp"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             />
         <FrameLayout
-            android:id="@+id/detail_container"
-            android:layout_width="260dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/rooms_container"
-            android:layout_toEndOf="@+id/rooms_container" />
-
+            android:id="@+id/create_room_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
         <FrameLayout
             android:id="@+id/replays_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
-
+        <Button
+            style="@style/MainButton.Wide"
+            android:layout_height="wrap_content"
+            android:text="@string/create_game"
+            android:id="@+id/create_game"
+            android:visibility="invisible"
+            android:layout_centerInParent="true"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="15dp"
+            />
         <ProgressBar
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
@@ -48,6 +55,7 @@
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"/>
     </RelativeLayout>
+
     <!-- The navigation drawer -->
     <RelativeLayout
         android:layout_width="280dp"

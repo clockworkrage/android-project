@@ -6,28 +6,22 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.support.v7.app.ActionBar;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -52,10 +46,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity implements ListRoomsFragment.OnItemSelectedListener, ReplayListFragment.OnItemSelectedListener {
 
@@ -68,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
     private ProgressBar progressBar;
     private DatabaseHelper mDatabaseHelper;
     private SQLiteDatabase mSqLiteDatabase;
-
+    private Button createButton;
 
 
     @Override
@@ -97,9 +88,17 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
         }
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
-
         mDrawerList = (ListView) findViewById(R.id.navList);
+        createButton = (Button) findViewById(R.id.create_game);
 
+
+        createButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, CreateRoomActivity.class);
+                startActivity(intent);
+            }
+        });
 
         mDatabaseHelper = new DatabaseHelper(this);
         mSqLiteDatabase = mDatabaseHelper.getReadableDatabase();
@@ -109,6 +108,9 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
         mDrawerList.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                createButton.setVisibility(View.GONE);
+
                 DrawerLayout mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
                 RelativeLayout mainContent = (RelativeLayout) findViewById(R.id.mainContent);
                 mDrawerLayout.closeDrawer(Gravity.LEFT);
@@ -135,6 +137,7 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
                 }
 
                 if(position == 1) {
+                    createButton.setVisibility(View.VISIBLE);
                     if (mainContent != null){
                         mainContent.setBackgroundColor(Color.TRANSPARENT);
                     }
@@ -187,10 +190,13 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
         }
 
         //Получение данных о комнате
-        GetRoomDetailTask task = new GetRoomDetailTask();
         ListRoomsFragment listRoomsFragment = (ListRoomsFragment) getSupportFragmentManager().findFragmentById(R.id.rooms_container);
-        task.roomId = listRoomsFragment.getRoomId(position);
-        task.execute();
+        int roomId = listRoomsFragment.getRoomId(position);
+        if (roomId != 0) {
+            GetRoomDetailTask task = new GetRoomDetailTask();
+            task.roomId = roomId;
+            task.execute();
+        }
     }
 
     @Override
@@ -268,15 +274,7 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
             listRoomsFragment.setListRooms(listRooms.toArray(new String[0]));
             getSupportFragmentManager().beginTransaction().add(R.id.rooms_container, listRoomsFragment).commit();
 
-            //Получение данных о комнате
-            boolean tabletSize = getResources().getBoolean(R.bool.isTablet);
-            if (tabletSize) {
-                GetRoomDetailTask task = new GetRoomDetailTask();
-                task.roomId = 0; //Первая комната
-                task.execute();
-            }else {
-                progressBar.setVisibility(View.GONE);
-            }
+            progressBar.setVisibility(View.GONE);
 
         }
 
@@ -354,30 +352,16 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
 
-            boolean tabletSize = getResources().getBoolean(R.bool.isTablet);
-            if (tabletSize) {
-                DetailRoomFragment newFragment = DetailRoomFragment.getInstance(roomId);
-                newFragment.setMin_players(min_players);
-                newFragment.setMax_players(max_players);
-                newFragment.setPlayers(players);
-                newFragment.setStatus(status);
-                newFragment.setTime_step(time_step);
-                newFragment.setIs_password(is_password);
-                newFragment.setRoomId(roomId);
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.add(R.id.detail_container, newFragment);
-                transaction.commit();
-            } else {
-                Intent intent = new Intent(MainActivity.this, RoomDetailActivity.class);
-                intent.putExtra("min_players", min_players);
-                intent.putExtra("max_players", max_players);
-                intent.putExtra("players", players);
-                intent.putExtra("status", status);
-                intent.putExtra("time_step", time_step);
-                intent.putExtra("is_password", is_password);
-                intent.putExtra("roomId", roomId);
-                startActivity(intent);
-            }
+
+            Intent intent = new Intent(MainActivity.this, RoomDetailActivity.class);
+            intent.putExtra("min_players", min_players);
+            intent.putExtra("max_players", max_players);
+            intent.putExtra("players", players);
+            intent.putExtra("status", status);
+            intent.putExtra("time_step", time_step);
+            intent.putExtra("is_password", is_password);
+            intent.putExtra("roomId", roomId);
+            startActivity(intent);
             progressBar.setVisibility(View.GONE);
         }
     }
@@ -447,6 +431,22 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        String screen = savedInstanceState.getString("screen","null");
+        if(screen.equals("multiplayer"))
+            createButton.setVisibility(View.VISIBLE);
+
+    }
+
+
+    protected void onSaveInstanceState(Bundle outState) {
+        ListRoomsFragment listRoomsFragment = (ListRoomsFragment) getSupportFragmentManager().findFragmentById(R.id.rooms_container);
+        if(listRoomsFragment != null)
+            outState.putString("screen", "multiplayer");
+        super.onSaveInstanceState(outState);
     }
 
 }

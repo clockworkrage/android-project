@@ -68,7 +68,6 @@ public class DetailRoomFragment extends Fragment {
 
 
         Button joinButton = (Button) view.findViewById(R.id.join_game);
-        Button createButton = (Button) view.findViewById(R.id.create_game);
 
         joinButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,14 +102,6 @@ public class DetailRoomFragment extends Fragment {
             labelGamePasswordView.setVisibility(View.GONE);
             roomSizeView.setVisibility(View.GONE);
         }
-
-        createButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), CreateRoomActivity.class);
-                startActivity(intent);
-            }
-        });
 
     }
 
