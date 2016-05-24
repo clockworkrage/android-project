@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1"
     android:background="@drawable/back">
-
 
     <TextView
         android:layout_width="210dp"
@@ -14,8 +13,7 @@
         android:id="@+id/replayField"
         android:layout_gravity="center_horizontal|center_vertical"
         android:layout_weight="0.60"
-        android:layout_marginTop="60dp"
-        />
+        android:layout_marginLeft="80dp"/>
 
     <Button
         style="?android:attr/buttonStyleSmall"
