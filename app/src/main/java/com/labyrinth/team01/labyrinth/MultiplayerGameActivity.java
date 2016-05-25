@@ -77,28 +77,52 @@ public class MultiplayerGameActivity extends AppCompatActivity implements GameRe
             stringBuilder.append('\n');
         }
         text.setText(stringBuilder.toString());
+        clearButton();
+    }
+
+    public void clearButton(){
+        Button buttonL = (Button) findViewById(R.id.button3);
+        buttonL.setBackgroundResource(R.drawable.button_arrow_left_image);
+        Button buttonR = (Button) findViewById(R.id.button4);
+        buttonR.setBackgroundResource(R.drawable.button_arrow_right_image);
+        Button buttonT = (Button) findViewById(R.id.button);
+        buttonT.setBackgroundResource(R.drawable.button_arrow_up_image);
+        Button buttonB = (Button) findViewById(R.id.button2);
+        buttonB.setBackgroundResource(R.drawable.button_arrow_down_image);
     }
 
     public void onClickTop(View view){
-        if (isStarted == true) {
+        if (isStarted) {
+            clearButton();
+            Button buttonT = (Button) findViewById(R.id.button);
+            buttonT.setBackgroundResource(R.drawable.arrow_up_pressed);
             GameService.goTop();
         }
     }
 
     public void onClickBottom(View view){
-        if (isStarted == true) {
+        if (isStarted) {
+            clearButton();
+            Button buttonB = (Button) findViewById(R.id.button2);
+            buttonB.setBackgroundResource(R.drawable.arrow_down_pressed);
             GameService.goBottom();
         }
     }
 
     public void onClickLeft(View view){
-        if (isStarted == true) {
+        if (isStarted) {
+            clearButton();
+            Button buttonL = (Button) findViewById(R.id.button3);
+            buttonL.setBackgroundResource(R.drawable.arrow_left_pressed);
             GameService.goLeft();
         }
     }
 
     public void onClickRight(View view){
-        if (isStarted == true) {
+        if (isStarted) {
+            clearButton();
+            Button buttonR = (Button) findViewById(R.id.button4);
+            buttonR.setBackgroundResource(R.drawable.arrow_right_pressed);
             GameService.goRight();
         }
     }

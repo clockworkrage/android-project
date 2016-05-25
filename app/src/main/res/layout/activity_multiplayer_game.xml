@@ -18,8 +18,8 @@
 
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
         android:background="@drawable/button_arrow_up_image"
         android:id="@+id/button"
         android:onClick="onClickTop"
@@ -33,17 +33,17 @@
         <TableRow>
             <Button
                 style="?android:attr/buttonStyleSmall"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginRight="20dp"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_marginRight="25dp"
                 android:background="@drawable/button_arrow_left_image"
                 android:onClick="onClickLeft"
                 android:id="@+id/button3" />
             <Button
                 style="?android:attr/buttonStyleSmall"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginLeft="20dp"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:layout_marginLeft="25dp"
                 android:background="@drawable/button_arrow_right_image"
                 android:onClick="onClickRight"
                 android:id="@+id/button4" />
@@ -53,8 +53,8 @@
 
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
         android:background="@drawable/button_arrow_down_image"
         android:id="@+id/button2"
         android:onClick="onClickBottom"

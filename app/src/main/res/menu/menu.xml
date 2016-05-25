@@ -7,4 +7,5 @@
         android:minHeight="?attr/actionBarSize"
         theme="@style/ToolbarColoredBackArrow"
         />
+
 </menu>
