@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
                     //Получение списка комнат
                     GetRoomListTask task = new GetRoomListTask();
                     task.execute();
-//                    task.ex
+
                     screenNumber = 1;
                 }
                 if(position == 2){

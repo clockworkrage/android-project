@@ -47,13 +47,11 @@ public class SettingsActivity extends AppCompatActivity {
                     editor.clear();
                     editor.putString(getString(R.string.style_pref), getString(R.string.style_pref_dark));
                     getBaseContext().setTheme(R.style.DarkTheme);
-                    setTheme(R.style.DarkTheme);
                 }
                 if (position == 1) {
                     editor.clear();
                     editor.putString(getString(R.string.style_pref), getString(R.string.style_pref_light));
                     getBaseContext().setTheme(R.style.AppTheme);
-                    setTheme(R.style.AppTheme);
                 }
                 editor.apply();
 
