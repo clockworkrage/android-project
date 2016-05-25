@@ -60,24 +60,30 @@ public class GameService extends Service {
                                 switch (status) {
                                     case "wait":
                                         data.putString("status", "wait");
-                                        receiver.send(1, data);
                                         break;
                                     case "in_game":
                                         data.putString("status", "in_game");
                                         data.putString("area",jObject.getString("area"));
-                                        receiver.send(1, data);
                                         break;
                                     case "finished":
                                         data.putString("status", "finished");
-                                        receiver.send(1, data);
                                         break;
+                                }
+                                try {
+                                    receiver.send(1, data);
+                                } catch (Exception e){
+                                    e.printStackTrace();
                                 }
 
                             }
                             if (type.equals("percent")) {
                                 Integer percent = jObject.getInt("percent");
                                 data.putInt("percent", percent);
-                                receiver.send(2, data);
+                                try {
+                                    receiver.send(2, data);
+                                } catch (Exception e){
+                                    e.printStackTrace();
+                                }
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
