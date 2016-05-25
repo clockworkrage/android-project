@@ -7,8 +7,9 @@
 
     <ListView
         android:id="@android:id/list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical|center_horizontal"/>
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_weight="1"/>
 
 </android.support.v4.widget.SwipeRefreshLayout>

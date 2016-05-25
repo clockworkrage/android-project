@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
     private DatabaseHelper mDatabaseHelper;
     private SQLiteDatabase mSqLiteDatabase;
     private Button createButton;
-
+    private boolean isPaused = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,6 +156,12 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
                     Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                     startActivity(intent);
                 }
+
+                if(position == 4) {
+                    finish();
+                }
+
+
 
             }
         });
