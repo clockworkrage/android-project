@@ -333,8 +333,11 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
             super.onPostExecute(result);
             ListRoomsFragment listRoomsFragment = new ListRoomsFragment();
             listRoomsFragment.setListRooms(listRooms.toArray(new String[0]));
-            getSupportFragmentManager().beginTransaction().add(R.id.rooms_container, listRoomsFragment).commit();
-
+            try {
+                getSupportFragmentManager().beginTransaction().add(R.id.rooms_container, listRoomsFragment).commit();
+            } catch (Exception e){
+                e.printStackTrace();
+            }
             progressBar.setVisibility(View.GONE);
 
         }
