@@ -5,25 +5,13 @@ import android.graphics.Typeface;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.koushikdutta.async.ByteBufferList;
-import com.koushikdutta.async.DataEmitter;
-import com.koushikdutta.async.callback.DataCallback;
-import com.koushikdutta.async.http.AsyncHttpClient;
-import com.koushikdutta.async.http.WebSocket;
-import com.labyrinth.team01.labyrinth.game.TypeLabirinthsCells;
-import com.labyrinth.team01.labyrinth.game.Vec2d;
 import com.labyrinth.team01.labyrinth.utils.GameResultsReceiver;
 import com.labyrinth.team01.labyrinth.utils.GameService;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import static com.labyrinth.team01.labyrinth.utils.GameService.*;
 
 public class MultiplayerGameActivity extends AppCompatActivity implements GameResultsReceiver.Receiver {
     private Integer roomId = 0;
@@ -35,6 +23,7 @@ public class MultiplayerGameActivity extends AppCompatActivity implements GameRe
     private String gameArea;
     private Boolean isStarted = false;
     private Boolean isWin = false;
+
 
     private StringBuilder playerPath = new StringBuilder();
     private char lastDirect;
@@ -53,6 +42,7 @@ public class MultiplayerGameActivity extends AppCompatActivity implements GameRe
 
         progressBar = (ProgressBar) findViewById(R.id.progressWaitGame);
         progressBarStep = (ProgressBar) findViewById(R.id.progressStep);
+
 
         text = (TextView) findViewById(R.id.textView);
         text.setTypeface(Typeface.MONOSPACE);
@@ -90,29 +80,32 @@ public class MultiplayerGameActivity extends AppCompatActivity implements GameRe
     }
 
     public void onClickTop(View view){
-        if (isStarted == true)
+        if (isStarted == true) {
             GameService.goTop();
+        }
     }
 
     public void onClickBottom(View view){
-        if (isStarted == true)
+        if (isStarted == true) {
             GameService.goBottom();
+        }
     }
 
     public void onClickLeft(View view){
-        if (isStarted == true)
+        if (isStarted == true) {
             GameService.goLeft();
+        }
     }
 
     public void onClickRight(View view){
-        if (isStarted == true)
+        if (isStarted == true) {
             GameService.goRight();
+        }
     }
 
     @Override
     public void onStop () {
-        if (isStarted == true)
-            GameService.exitRoom();
+        GameService.exitRoom();
         super.onStop();
     }
 

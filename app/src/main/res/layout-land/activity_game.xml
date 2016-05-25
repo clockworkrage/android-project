@@ -7,12 +7,13 @@
     android:background="@drawable/back">
 
     <TextView
-        android:layout_width="210dp"
-        android:layout_height="210dp"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/game_textview_width"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/textView"
         android:layout_gravity="center_horizontal|center_vertical"
         android:layout_weight="0.60"
+        android:textSize="@dimen/game_font_size"
         android:layout_marginLeft="80dp"/>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

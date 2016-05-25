@@ -1,20 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="1"
     tools:context=".MultiplayerGameActivity"
     android:background="@drawable/back">
 
     <TextView
-        android:layout_width="@dimen/game_textview_width"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/game_textview_width"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/textView"
-        android:layout_gravity="center_horizontal"
+        android:layout_gravity="center_horizontal|center_vertical"
         android:layout_weight="0.60"
-        android:textSize="@dimen/game_font_size"/>
+        android:layout_marginLeft="80dp"
+        android:textSize="@dimen/game_font_size" />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center_vertical"
+        >
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -28,7 +37,8 @@
     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentBottom="true">
 
         <TableRow>
             <Button
@@ -76,4 +86,5 @@
         android:visibility="invisible"
         android:indeterminate="false"
         android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
 </LinearLayout>
