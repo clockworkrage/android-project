@@ -7,12 +7,13 @@
     android:background="@drawable/back">
 
     <TextView
-        android:layout_width="210dp"
-        android:layout_height="210dp"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/game_textview_width"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/textView"
         android:layout_gravity="center_horizontal|center_vertical"
         android:layout_weight="0.60"
+        android:textSize="@dimen/game_font_size"
         android:layout_marginLeft="80dp"/>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -23,8 +24,8 @@
 
         <Button
             style="?android:attr/buttonStyleSmall"
-            android:layout_width="86dp"
-            android:layout_height="86dp"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
             android:background="@drawable/button_arrow_up_image"
             android:id="@+id/button"
             android:onClick="onClickTop"
@@ -39,16 +40,16 @@
             <TableRow>
                 <Button
                     style="?android:attr/buttonStyleSmall"
-                    android:layout_width="86dp"
-                    android:layout_height="86dp"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
                     android:layout_marginRight="25dp"
                     android:background="@drawable/button_arrow_left_image"
                     android:onClick="onClickLeft"
                     android:id="@+id/button3" />
                 <Button
                     style="?android:attr/buttonStyleSmall"
-                    android:layout_width="86dp"
-                    android:layout_height="86dp"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
                     android:layout_marginLeft="25dp"
                     android:background="@drawable/button_arrow_right_image"
                     android:onClick="onClickRight"
@@ -59,8 +60,8 @@
 
         <Button
             style="?android:attr/buttonStyleSmall"
-            android:layout_width="86dp"
-            android:layout_height="86dp"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
             android:background="@drawable/button_arrow_down_image"
             android:id="@+id/button2"
             android:onClick="onClickBottom"

@@ -73,6 +73,7 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
         outState.putInt(KEY_SCREEN_NUMBER, screenNumber);
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -165,6 +166,12 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
                     Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                     startActivity(intent);
                 }
+
+                if(position == 4) {
+                    finish();
+                }
+
+
 
             }
         });

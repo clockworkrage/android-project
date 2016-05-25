@@ -12,11 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/DarkTheme">
         <activity
-            android:name=".MainActivity">
+            android:name=".MainActivity"
+            android:configChanges="keyboardHidden|orientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.DEFAULT" />
+
             </intent-filter>
         </activity>
         <activity

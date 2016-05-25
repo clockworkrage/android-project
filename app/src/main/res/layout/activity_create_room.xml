@@ -78,10 +78,12 @@
             android:id="@+id/label_game_password2"/>
 
         <EditText
+            style="@style/MainFont.Ligth"
+            android:layout_marginLeft="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/room_password"
-            />
+            android:inputType="textPassword" />
 
     </TableRow>
     <Button
