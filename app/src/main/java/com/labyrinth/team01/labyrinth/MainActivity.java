@@ -61,15 +61,22 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
     private SQLiteDatabase mSqLiteDatabase;
     private Button createButton;
 
+    private int screenNumber = 0;   //Где я нахожусь?
+    private static final String KEY_SCREEN_NUMBER = "SCREEN_NUMBER";
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        ListRoomsFragment listRoomsFragment = (ListRoomsFragment) getSupportFragmentManager().findFragmentById(R.id.rooms_container);
+        if(listRoomsFragment != null)
+            outState.putString("screen", "multiplayer");
+        super.onSaveInstanceState(outState);
+
+        outState.putInt(KEY_SCREEN_NUMBER, screenNumber);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        RelativeLayout mainContent = (RelativeLayout) findViewById(R.id.mainContent);
-        if (mainContent != null){
-            mainContent.setBackgroundColor(Color.TRANSPARENT);
-        }
         SharedPreferences sPref = getSharedPreferences(getString(R.string.pref_file), Context.MODE_PRIVATE);
         String defaultValue = getResources().getString(R.string.style_pref_default);
         String appStyle = sPref.getString(getString(R.string.style_pref), defaultValue);
@@ -144,11 +151,13 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
                     //Получение списка комнат
                     GetRoomListTask task = new GetRoomListTask();
                     task.execute();
+                    screenNumber = 1;
                 }
                 if(position == 2){
                     if (mainContent != null){
                         mainContent.setBackgroundColor(Color.TRANSPARENT);
                     }
+                    screenNumber = 2;
                     GetReplaysListTask task = new GetReplaysListTask();
                     task.execute();
                 }
@@ -159,6 +168,7 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
 
             }
         });
+
 
         Toolbar toolbar = (Toolbar)  findViewById(R.id.toolbar);
         DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
@@ -178,6 +188,57 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
         };
 
         drawerLayout.setDrawerListener(mDrawerToggle);
+
+
+
+
+
+
+        if (savedInstanceState != null) {
+            screenNumber = savedInstanceState.getInt(KEY_SCREEN_NUMBER, 0);
+        }
+
+        DetailRoomFragment oldDetailFragment = (DetailRoomFragment) getSupportFragmentManager().findFragmentById(R.id.detail_container);
+        ListRoomsFragment oldRoomsFragment = (ListRoomsFragment) getSupportFragmentManager().findFragmentById(R.id.rooms_container);
+        ReplayListFragment oldReplayListFragment = (ReplayListFragment) getSupportFragmentManager().findFragmentById(R.id.replays_container);
+
+        if(    screenNumber != 0 && screenNumber != 3) {
+            if (oldDetailFragment != null) {
+                getSupportFragmentManager().beginTransaction().remove(oldDetailFragment).commit();
+            }
+            if (oldRoomsFragment != null) {
+                getSupportFragmentManager().beginTransaction().remove(oldRoomsFragment).commit();
+            }
+            if (oldReplayListFragment != null) {
+                getSupportFragmentManager().beginTransaction().remove(oldReplayListFragment).commit();
+            }
+        }
+
+        if(screenNumber == 1) {
+            createButton.setVisibility(View.VISIBLE);
+            RelativeLayout mainContent = (RelativeLayout) findViewById(R.id.mainContent);
+            if (mainContent != null && screenNumber != 0){
+                mainContent.setBackgroundColor(Color.TRANSPARENT);
+            }
+            //Получение списка комнат
+            GetRoomListTask task = new GetRoomListTask();
+            task.execute();
+            screenNumber = 1;
+        }
+        if(screenNumber == 2){
+            RelativeLayout mainContent = (RelativeLayout) findViewById(R.id.mainContent);
+            if (mainContent != null && screenNumber != 0){
+                mainContent.setBackgroundColor(Color.TRANSPARENT);
+            }
+            screenNumber = 2;
+            GetReplaysListTask task = new GetReplaysListTask();
+            task.execute();
+        }
+
+
+
+
+
     }
 
 
@@ -441,13 +502,6 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
 
     }
 
-
-    protected void onSaveInstanceState(Bundle outState) {
-        ListRoomsFragment listRoomsFragment = (ListRoomsFragment) getSupportFragmentManager().findFragmentById(R.id.rooms_container);
-        if(listRoomsFragment != null)
-            outState.putString("screen", "multiplayer");
-        super.onSaveInstanceState(outState);
-    }
 
 }
 
