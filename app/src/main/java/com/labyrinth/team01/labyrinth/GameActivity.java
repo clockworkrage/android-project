@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.labyrinth.team01.labyrinth.game.Labirinth;
@@ -52,10 +53,14 @@ public class GameActivity extends Activity {
         SharedPreferences sPref = getSharedPreferences(getString(R.string.pref_file), Context.MODE_PRIVATE);
         String defaultValue = getResources().getString(R.string.style_pref_default);
         String appStyle = sPref.getString(getString(R.string.style_pref), defaultValue);
+
+
+
         if(appStyle.equals(getString(R.string.style_pref_dark))) {
             setTheme(R.style.DarkTheme);
         } else {
             setTheme(R.style.AppTheme);
+
         }
 
         setContentView(R.layout.activity_game);
