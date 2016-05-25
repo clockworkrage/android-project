@@ -31,6 +31,11 @@ public class SettingsActivity extends AppCompatActivity {
                 R.array.styles_array, R.layout.style_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
+        if (appStyle.equals(getString(R.string.style_pref_dark))) {
+            spinner.setSelection(0);
+        } else
+            spinner.setSelection(1);
+
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

@@ -47,6 +47,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.Executor;
 
 public class MainActivity extends AppCompatActivity implements ListRoomsFragment.OnItemSelectedListener, ReplayListFragment.OnItemSelectedListener {
 
@@ -152,6 +153,7 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
                     //Получение списка комнат
                     GetRoomListTask task = new GetRoomListTask();
                     task.execute();
+//                    task.ex
                     screenNumber = 1;
                 }
                 if(position == 2){
@@ -342,11 +344,10 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
             listRoomsFragment.setListRooms(listRooms.toArray(new String[0]));
             try {
                 getSupportFragmentManager().beginTransaction().add(R.id.rooms_container, listRoomsFragment).commit();
+                progressBar.setVisibility(View.GONE);
             } catch (Exception e){
                 e.printStackTrace();
             }
-            progressBar.setVisibility(View.GONE);
-
         }
 
     }
@@ -479,8 +480,12 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
             super.onPostExecute(aVoid);
             ReplayListFragment replayListFragment = new ReplayListFragment();
             replayListFragment.setListReplays(listReplays.toArray(new String[0]));
-            getSupportFragmentManager().beginTransaction().add(R.id.replays_container, replayListFragment).commit();
-            progressBar.setVisibility(View.GONE);
+            try {
+                getSupportFragmentManager().beginTransaction().add(R.id.replays_container, replayListFragment).commit();
+                progressBar.setVisibility(View.GONE);
+            } catch (Exception e){
+                e.printStackTrace();
+            }
         }
     }
 
