@@ -3,5 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="font_size">24sp</dimen>
+    <dimen name="game_font_size">24sp</dimen>
+    <dimen name="game_textview_width">210dp</dimen>
     <bool name="isTablet">false</bool>
 </resources>
