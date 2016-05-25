@@ -1,5 +1,6 @@
 package com.labyrinth.team01.labyrinth;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Handler;
@@ -13,7 +14,7 @@ import android.widget.TextView;
 import com.labyrinth.team01.labyrinth.utils.GameResultsReceiver;
 import com.labyrinth.team01.labyrinth.utils.GameService;
 
-public class MultiplayerGameActivity extends AppCompatActivity implements GameResultsReceiver.Receiver {
+public class MultiplayerGameActivity extends Activity implements GameResultsReceiver.Receiver {
     private Integer roomId = 0;
     private String password = "";
     private ProgressBar progressBar;
