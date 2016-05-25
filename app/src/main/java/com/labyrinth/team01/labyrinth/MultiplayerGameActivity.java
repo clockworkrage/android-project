@@ -68,15 +68,15 @@ public class MultiplayerGameActivity extends Activity implements GameResultsRece
             startService(intent);
         }
         else {
-            if (isStarted){
-                progressBar.setVisibility(View.GONE);
-            } else
-                progressBar.setVisibility(View.VISIBLE);
-            
+
             gameArea = savedInstanceState.getString(KEY_FIELD);
             updateLabirinth();
             isStarted = savedInstanceState.getBoolean(KEY_ISSTARTED);
             mReceiver = savedInstanceState.getParcelable("RECEIVER");
+            if (isStarted){
+                progressBar.setVisibility(View.GONE);
+            } else
+                progressBar.setVisibility(View.VISIBLE);
             if(mReceiver != null)
                 mReceiver.setReceiver(this);
         }

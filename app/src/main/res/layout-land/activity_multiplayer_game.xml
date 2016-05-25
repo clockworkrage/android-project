@@ -15,7 +15,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/textView"
         android:layout_gravity="center_horizontal|center_vertical"
-        android:layout_weight="0.60"
+        android:layout_weight="0.75"
         android:layout_marginLeft="80dp"
         android:textSize="@dimen/game_font_size"
         />
