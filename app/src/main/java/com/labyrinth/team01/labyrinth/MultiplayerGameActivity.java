@@ -67,9 +67,12 @@ public class MultiplayerGameActivity extends Activity implements GameResultsRece
             intent.putExtra("RECEIVER", mReceiver);
             startService(intent);
         }
-        else
-        {
-            progressBar.setVisibility(View.GONE);
+        else {
+            if (isStarted){
+                progressBar.setVisibility(View.GONE);
+            } else
+                progressBar.setVisibility(View.VISIBLE);
+            
             gameArea = savedInstanceState.getString(KEY_FIELD);
             updateLabirinth();
             isStarted = savedInstanceState.getBoolean(KEY_ISSTARTED);
@@ -81,20 +84,22 @@ public class MultiplayerGameActivity extends Activity implements GameResultsRece
     }
 
     private void updateLabirinth(){
-        StringBuilder stringBuilder = new StringBuilder();
-        for(int i=0; i<7; ++i){
-            for(int j=0; j<7; ++j){
-                if(i==3 && j==3){
-                    stringBuilder.append("OO");
-                } else {
-                    stringBuilder.append(gameArea.charAt(i*30 + j*4 + 2 + 1));
-                    stringBuilder.append(gameArea.charAt(i*30 + j*4 + 2 + 1));
+        try {
+            StringBuilder stringBuilder = new StringBuilder();
+            for (int i = 0; i < 7; ++i) {
+                for (int j = 0; j < 7; ++j) {
+                    if (i == 3 && j == 3) {
+                        stringBuilder.append("OO");
+                    } else {
+                        stringBuilder.append(gameArea.charAt(i * 30 + j * 4 + 2 + 1));
+                        stringBuilder.append(gameArea.charAt(i * 30 + j * 4 + 2 + 1));
+                    }
                 }
+                stringBuilder.append('\n');
             }
-            stringBuilder.append('\n');
-        }
-        text.setText(stringBuilder.toString());
-        clearButton();
+            text.setText(stringBuilder.toString());
+            clearButton();
+        }catch (Exception e){}
     }
 
     public void clearButton(){
