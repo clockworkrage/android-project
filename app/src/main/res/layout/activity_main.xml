@@ -41,6 +41,8 @@
             android:layout_centerInParent="true"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             />
         <ProgressBar
             style="?android:attr/progressBarStyleLarge"

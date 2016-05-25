@@ -13,7 +13,7 @@
         android:theme="@style/DarkTheme">
         <activity
             android:name=".MainActivity"
-            android:configChanges="keyboardHidden|orientation">
+            android:configChanges="orientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -51,7 +51,8 @@
         <activity
             android:name=".CreateRoomActivity" />
         <activity
-            android:name=".MultiplayerGameActivity" />
+            android:name=".MultiplayerGameActivity"
+            android:configChanges="orientation"/>
 
         <service android:name=".utils.GameService" />
 

@@ -28,10 +28,15 @@ public class MultiplayerGameActivity extends AppCompatActivity implements GameRe
     private StringBuilder playerPath = new StringBuilder();
     private char lastDirect;
 
-
+    private static final String KEY_FIELD = "FIELD";
+    private static final String KEY_ISSTARTED = "ISSTARTED";
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+        outState.putString(KEY_FIELD, gameArea);
+        outState.putParcelable("RECEIVER", mReceiver);
+        outState.putBoolean(KEY_ISSTARTED, isStarted);
+
         super.onSaveInstanceState(outState);
     }
 
@@ -50,16 +55,27 @@ public class MultiplayerGameActivity extends AppCompatActivity implements GameRe
         roomId = Integer.parseInt(getIntent().getStringExtra("roomId"));
         password = getIntent().getStringExtra("password");
 
-        progressBar.setVisibility(View.VISIBLE);
 
-        mReceiver = new GameResultsReceiver(new Handler());
-        mReceiver.setReceiver(this);
-
-        Intent intent = new Intent(this, GameService.class);
-        intent.putExtra("roomId", roomId.toString());
-        intent.putExtra("password", "");
-        intent.putExtra("RECEIVER", mReceiver);
-        startService(intent);
+        if(savedInstanceState == null) {
+            mReceiver = new GameResultsReceiver(new Handler());
+            mReceiver.setReceiver(this);
+            progressBar.setVisibility(View.VISIBLE);
+            Intent intent = new Intent(this, GameService.class);
+            intent.putExtra("roomId", roomId.toString());
+            intent.putExtra("password", "");
+            intent.putExtra("RECEIVER", mReceiver);
+            startService(intent);
+        }
+        else
+        {
+            progressBar.setVisibility(View.GONE);
+            gameArea = savedInstanceState.getString(KEY_FIELD);
+            updateLabirinth();
+            isStarted = savedInstanceState.getBoolean(KEY_ISSTARTED);
+            mReceiver = savedInstanceState.getParcelable("RECEIVER");
+            if(mReceiver != null)
+                mReceiver.setReceiver(this);
+        }
 
     }
 
@@ -129,7 +145,8 @@ public class MultiplayerGameActivity extends AppCompatActivity implements GameRe
 
     @Override
     public void onStop () {
-        GameService.exitRoom();
+        //if(isStarted)
+        //    GameService.exitRoom();
         super.onStop();
     }
 
@@ -166,4 +183,6 @@ public class MultiplayerGameActivity extends AppCompatActivity implements GameRe
         isStarted = false;
         text.setText("You win!");
     }
+
+
 }
