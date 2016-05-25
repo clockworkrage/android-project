@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -152,7 +153,11 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
                     }
                     //Получение списка комнат
                     GetRoomListTask task = new GetRoomListTask();
-                    task.execute();
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                        task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    } else {
+                        task.execute();
+                    }
 
                     screenNumber = 1;
                 }
@@ -162,7 +167,11 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
                     }
                     screenNumber = 2;
                     GetReplaysListTask task = new GetReplaysListTask();
-                    task.execute();
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                        task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                    } else {
+                        task.execute();
+                    }
                 }
                 if(position == 3) {
                     Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
@@ -231,7 +240,11 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
             }
             //Получение списка комнат
             GetRoomListTask task = new GetRoomListTask();
-            task.execute();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            } else {
+                task.execute();
+            }
             screenNumber = 1;
         }
         if(screenNumber == 2){
@@ -241,7 +254,11 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
             }
             screenNumber = 2;
             GetReplaysListTask task = new GetReplaysListTask();
-            task.execute();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            } else {
+                task.execute();
+            }
         }
 
 
@@ -340,13 +357,15 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            ListRoomsFragment listRoomsFragment = new ListRoomsFragment();
-            listRoomsFragment.setListRooms(listRooms.toArray(new String[0]));
-            try {
-                getSupportFragmentManager().beginTransaction().add(R.id.rooms_container, listRoomsFragment).commit();
-                progressBar.setVisibility(View.GONE);
-            } catch (Exception e){
-                e.printStackTrace();
+            if(screenNumber == 1) {
+                ListRoomsFragment listRoomsFragment = new ListRoomsFragment();
+                listRoomsFragment.setListRooms(listRooms.toArray(new String[0]));
+                try {
+                    getSupportFragmentManager().beginTransaction().add(R.id.rooms_container, listRoomsFragment).commit();
+                    progressBar.setVisibility(View.GONE);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
 
@@ -478,13 +497,15 @@ public class MainActivity extends AppCompatActivity implements ListRoomsFragment
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            ReplayListFragment replayListFragment = new ReplayListFragment();
-            replayListFragment.setListReplays(listReplays.toArray(new String[0]));
-            try {
-                getSupportFragmentManager().beginTransaction().add(R.id.replays_container, replayListFragment).commit();
-                progressBar.setVisibility(View.GONE);
-            } catch (Exception e){
-                e.printStackTrace();
+            if(screenNumber == 2) {
+                ReplayListFragment replayListFragment = new ReplayListFragment();
+                replayListFragment.setListReplays(listReplays.toArray(new String[0]));
+                try {
+                    getSupportFragmentManager().beginTransaction().add(R.id.replays_container, replayListFragment).commit();
+                    progressBar.setVisibility(View.GONE);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
