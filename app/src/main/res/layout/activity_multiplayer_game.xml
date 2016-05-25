@@ -15,6 +15,7 @@
         android:id="@+id/textView"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.60"
+        android:layout_marginTop="60dp"
         android:textSize="@dimen/game_font_size"/>
 
     <Button
