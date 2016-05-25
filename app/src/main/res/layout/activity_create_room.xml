@@ -90,5 +90,7 @@
     <Button
         style="@style/MainButton.Wide"
         android:text="@string/create_room"
-        android:id="@+id/create_room_button"/>
+        android:id="@+id/create_room_button"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"/>
 </TableLayout>
