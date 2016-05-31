@@ -22,7 +22,7 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="86dp"
         android:layout_height="86dp"
-        android:background="@drawable/play"
+        android:background="@drawable/button_play_image"
         android:id="@+id/buttonNext"
         android:onClick="onClickNext"
         android:layout_gravity="center_horizontal|center_vertical" />
